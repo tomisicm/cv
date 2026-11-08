@@ -8,3 +8,4 @@ public/og.png
 *.tsbuildinfo
 next-env.d.ts
 README.md
+.next-verify
