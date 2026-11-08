@@ -14,7 +14,7 @@ import { Section } from './Section'
 
 function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
   return (
-    <article className="mb-[0.95em] break-inside-avoid last:mb-0">
+    <article className="mb-[0.85em] break-inside-avoid last:mb-0">
       <div className="flex items-baseline justify-between gap-[1em]">
         <h3 className="text-[0.98em] leading-snug font-semibold">{entry.role}</h3>
         <span className="shrink-0 text-[0.76em] whitespace-nowrap text-muted tabular-nums">
@@ -37,7 +37,7 @@ function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
         </p>
       )}
 
-      <ul className="mt-[0.3em] flex list-disc flex-col gap-[0.2em] pl-[1em] marker:text-muted">
+      <ul className="mt-[0.25em] flex list-disc flex-col gap-[0.2em] pl-[1em] marker:text-muted">
         {entry.bullets.map((bullet) => (
           <li
             key={bullet.text}
@@ -52,7 +52,7 @@ function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
         ))}
       </ul>
 
-      <p className="mt-[0.28em] text-[0.74em] leading-[1.4] text-muted">
+      <p className="mt-[0.24em] text-[0.74em] leading-[1.4] text-muted">
         <span className="font-medium text-ink/70">Tech</span> · {entry.tech.join(', ')}
       </p>
     </article>
@@ -91,7 +91,7 @@ export function PrintResume({ cv }: { cv: Cv }) {
 
       <hr className="mt-[1.1em] border-0 border-t border-rule" />
 
-      <div className="mt-[1.15em] flex flex-1 flex-col gap-[1.05em]">
+      <div className="mt-[1.15em] flex flex-1 flex-col gap-[0.95em]">
         <Section title="Profile">
           <p className="text-[0.81em] leading-[1.5] text-ink">{cv.summary}</p>
         </Section>

@@ -76,12 +76,38 @@ export const cv: Cv = {
 
   summary:
     'Fullstack engineer with a backend focus, an applied mathematics ' +
-    'background, and nine years across e-commerce, healthcare, and scientific ' +
-    'data platforms. I work best as the connective tissue in a team — turning ' +
+    'background, and nine years across e-commerce, healthcare, scientific data, ' +
+    'and energy. I work best as the connective tissue in a team — turning ' +
     'ambiguous requirements into a plan, and keeping the people around me ' +
     'unblocked.',
 
   experience: [
+    {
+      role: 'Senior Software Engineer',
+      company: 'EPAM Systems',
+      client: 'HelleniQ Energy',
+      start: 'Mar 2026',
+      end: 'Present',
+      bullets: [
+        {
+          text: 'Built a mobile-first PWA that also works on desktop: pulls data from Fabric and Postgres, processes it with an LLM, and returns the result to the user.',
+        },
+        {
+          text: 'Implemented the API layer and the ChatGPT integration behind it.',
+        },
+      ],
+      tech: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Node',
+        'Postgres',
+        'Redis',
+        'Tailwind',
+        'Fabric',
+        'OpenAI API',
+      ],
+    },
     {
       role: 'Senior Software Engineer',
       company: 'EPAM Systems',

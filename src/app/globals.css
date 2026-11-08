@@ -37,10 +37,10 @@ html {
   box-sizing: border-box;
   width: 210mm;
   height: 297mm;
-  padding: 13mm 14mm;
+  padding: 11mm 12mm;
   background: #fff;
   color: var(--color-ink);
-  font-size: 15.2px;
+  font-size: 14.3px;
   overflow: hidden;
 }
 
