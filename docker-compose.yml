@@ -10,13 +10,13 @@ services:
     # service) can reach it. Never expose this on 0.0.0.0 — the tunnel is the
     # only public entrance.
     ports:
-      - '127.0.0.1:3333:8080'
+      - '127.0.0.1:3333:3333'
 
     healthcheck:
       test:
         [
           'CMD-SHELL',
-          'wget -qO- http://127.0.0.1:8080/health >/dev/null || exit 1',
+          'wget -qO- http://127.0.0.1:3333/health >/dev/null || exit 1',
         ]
       interval: 30s
       timeout: 3s

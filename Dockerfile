@@ -40,14 +40,14 @@ COPY --from=build /app/out /srv
 
 ENV SERVER_ROOT=/srv \
     SERVER_HOST=0.0.0.0 \
-    SERVER_PORT=8080 \
+    SERVER_PORT=3333 \
     SERVER_COMPRESSION=true \
     SERVER_CACHE_CONTROL_HEADERS=false \
     SERVER_ERROR_PAGE_404=404.html \
     SERVER_HEALTH=true \
     SERVER_LOG_LEVEL=info
 
-EXPOSE 8080
+EXPOSE 3333
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget -qO- http://127.0.0.1:8080/health >/dev/null || exit 1
+  CMD wget -qO- http://127.0.0.1:3333/health >/dev/null || exit 1

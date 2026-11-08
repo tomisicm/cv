@@ -106,7 +106,7 @@ They belong at the edge now, since nothing can reach the origin directly.
 ## 9. Observability hooks
 
 - Container healthcheck: `GET /health`
-- Prometheus (internal): `http://cv-web:8080/health` via blackbox exporter
+- Prometheus (internal): `http://cv-web:3333/health` via blackbox exporter
 - Prometheus (public): `https://cv.tomisic.dev` via blackbox
 - Logs: static-web-server writes to the container's stdout, so Promtail picks
   them up with no configuration. Give this stream a short retention — a scan
