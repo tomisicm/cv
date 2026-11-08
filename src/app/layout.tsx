@@ -31,7 +31,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={geist.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        {/* Marks the document before first paint. All entrance animations are
+            gated on this, so a JS failure leaves the page fully readable. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.dataset.js='1'",
+          }}
+        />
+        {children}
+      </body>
     </html>
   )
 }

@@ -36,6 +36,23 @@ There are two presentations of one document:
 Both read `content/cv.ts`, so the facts exist in exactly one place. Only the
 markup is duplicated, which is what makes the two independently restylable.
 
+## The website
+
+`WebResume` is a dark, animated portfolio: split-text hero, aurora backdrop,
+scroll reveals, infinite tech ticker, cursor-following spotlight on each role,
+and a magnetic PDF button.
+
+Every entrance animation is gated twice:
+
+- `[data-js]` is set by an inline script before first paint, so if JS is
+  disabled or fails, nothing is hidden.
+- `prefers-reduced-motion: no-preference` wraps the motion CSS, so reduced-motion
+  visitors get the finished layout immediately.
+
+There is no animation library. The effects are CSS keyframes plus ~2 KB of
+pointer and IntersectionObserver code, which keeps the page at ~449 KB of
+uncompressed JS (almost all of it React/Next).
+
 The PDF needs `PrintResume` to be single-column because Chrome emits PDF text in
 a global top-to-bottom order: side-by-side blocks interleave, so a copied
 paragraph comes out as `the person whoLanguages unblocks a team`. One column

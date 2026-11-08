@@ -1,144 +1,342 @@
 import type { Cv } from '@/content/cv'
-import { Section } from './Section'
+import { Marquee } from '@/components/web/Marquee'
+import { Magnetic } from '@/components/web/Magnetic'
+import { Reveal } from '@/components/web/Reveal'
+import { SpotlightCard } from '@/components/web/SpotlightCard'
+import { SplitText } from '@/components/web/SplitText'
 
 /**
- * Website presentation: two columns, free to be restyled.
- *
- * This component is deliberately independent of `PrintResume`. Change spacing,
- * colour, typography or layout here as much as you like — the downloadable PDF
- * cannot be affected, because `scripts/generate-pdf.mjs` only ever renders
- * `/print/` and verifies that output.
- *
- * Both components read the same `content/cv.ts`, so the facts live in one place.
+ * Website presentation. Completely independent of `PrintResume`: the PDF is
+ * rendered from `/print/` only, so everything in this file is free to be as
+ * animated and opinionated as it likes.
  */
 
-function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
+const SECTIONS = [
+  { index: '01', id: 'experience', label: 'Experience' },
+  { index: '02', id: 'skills', label: 'Skills' },
+  { index: '03', id: 'education', label: 'Education' },
+  { index: '04', id: 'contact', label: 'Contact' },
+]
+
+function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
-    <article className="mb-[0.95em] last:mb-0">
-      <div className="flex items-baseline justify-between gap-[1em]">
-        <h3 className="text-[0.98em] leading-snug font-semibold">{entry.role}</h3>
-        <span className="shrink-0 text-[0.76em] whitespace-nowrap text-muted tabular-nums">
-          {entry.start} — {entry.end}
-        </span>
-      </div>
-
-      {entry.company && (
-        <p className="text-[0.85em] leading-snug font-medium text-accent">
-          {entry.company}
-          {entry.location && (
-            <span className="font-normal text-muted"> · {entry.location}</span>
-          )}
-        </p>
-      )}
-
-      <ul className="mt-[0.3em] flex list-disc flex-col gap-[0.2em] pl-[1em] marker:text-muted">
-        {entry.bullets.map((bullet) => (
-          <li key={bullet} className="text-[0.81em] leading-[1.45] text-ink">
-            {bullet}
-          </li>
-        ))}
-      </ul>
-
-      <p className="mt-[0.28em] text-[0.74em] leading-[1.4] text-muted">
-        <span className="font-medium text-ink/70">Tech</span> · {entry.tech.join(', ')}
-      </p>
-    </article>
+    <div className="flex items-baseline gap-4">
+      <span className="font-mono text-[10px] tracking-[0.18em] text-ember">
+        {index}
+      </span>
+      <h2 className="font-mono text-[10px] font-medium tracking-[0.3em] text-dim uppercase">
+        {title}
+      </h2>
+      <span className="h-px flex-1 bg-white/10" />
+    </div>
   )
 }
 
-export function WebResume({ cv }: { cv: Cv }) {
+function ContactLinks({ cv }: { cv: Cv }) {
   return (
-    <article className="flex flex-col">
-      <header className="flex items-start justify-between gap-[1.5em] max-sm:flex-col max-sm:gap-[0.6em]">
-        <div>
-          <h1 className="text-[2.5em] leading-[1.02] font-semibold tracking-[-0.022em]">
-            {cv.name}
-          </h1>
-          <p className="mt-[0.32em] text-[1em] leading-snug font-medium text-accent">
-            {cv.role}
-          </p>
-        </div>
+    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11px]">
+      <dt className="text-white/30">LOC</dt>
+      <dd className="text-fog/80">{cv.location}</dd>
 
-        <address className="flex flex-col items-end gap-[0.1em] pt-[0.35em] text-right text-[0.78em] leading-[1.55] text-muted not-italic max-sm:items-start max-sm:pt-0 max-sm:text-left">
-          <span>{cv.location}</span>
-          <a className="text-inherit no-underline" href={`mailto:${cv.email}`}>
-            {cv.email}
-          </a>
-          {cv.links.map((link) => (
+      <dt className="text-white/30">MAIL</dt>
+      <dd>
+        <a
+          className="text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
+          href={`mailto:${cv.email}`}
+        >
+          {cv.email}
+        </a>
+      </dd>
+
+      {cv.links.map((link) => (
+        <div key={link.href} className="contents">
+          <dt className="text-white/30">{link.label.toUpperCase()}</dt>
+          <dd>
             <a
-              key={link.href}
-              className="text-inherit no-underline"
+              className="group inline-flex items-center gap-1 text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
               href={link.href}
               target="_blank"
               rel="noreferrer"
             >
               {link.display}
+              <span className="inline-block transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                ↗
+              </span>
             </a>
-          ))}
-        </address>
-      </header>
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
 
-      <hr className="mt-[1.1em] border-0 border-t border-rule" />
+export function WebResume({ cv }: { cv: Cv }) {
+  const stack = Array.from(new Set(cv.skills.flatMap((group) => group.items)))
 
-      <div className="mt-[1.15em] grid flex-1 grid-cols-[1.68fr_1fr] gap-[1.7em] max-md:grid-cols-1 max-md:gap-[1.15em]">
-        <div className="flex min-w-0 flex-col gap-[1.15em]">
-          <Section title="Profile">
-            <p className="text-[0.81em] leading-[1.5] text-ink">{cv.summary}</p>
-          </Section>
-
-          <Section title="Experience">
-            <div>
-              {cv.experience.map((entry) => (
-                <ExperienceEntry
-                  key={`${entry.company ?? ''}-${entry.start}`}
-                  entry={entry}
-                />
-              ))}
-            </div>
-          </Section>
+  return (
+    <div>
+      {/* ---------------------------------------------------------------- */}
+      {/* Hero                                                             */}
+      {/* ---------------------------------------------------------------- */}
+      <header className="pt-16 sm:pt-24">
+        <div
+          className="rise flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[10px] tracking-[0.22em] uppercase"
+          style={{ animationDelay: '80ms' }}
+        >
+          <span className="inline-flex items-center gap-2 text-ember">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ember opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ember" />
+            </span>
+            {cv.role}
+          </span>
+          <span className="text-white/20">/</span>
+          <span className="text-dim">{cv.location}</span>
         </div>
 
-        <aside className="flex min-w-0 flex-col gap-[1.15em] border-l border-rule pl-[1.4em] max-md:border-l-0 max-md:pl-0">
-          <Section title="Skills">
-            <div className="flex flex-col gap-[0.55em]">
-              {cv.skills.map((group) => (
-                <div key={group.label}>
-                  <h3 className="text-[0.72em] font-semibold tracking-[0.06em] text-ink">
-                    {group.label}
-                  </h3>
-                  <p className="text-[0.78em] leading-[1.45] text-muted">
-                    {group.items.join(' · ')}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </Section>
+        <h1 className="mt-7 text-[clamp(3.2rem,10.5vw,9rem)] leading-[0.86] font-semibold tracking-[-0.05em]">
+          <SplitText text="Mihailo" delay={80} />
+          <br />
+          <SplitText text="Tomišić" delay={180} />
+          <span className="text-ember">.</span>
+        </h1>
 
-          <Section title="Education">
-            <div>
-              {cv.education.map((entry) => (
-                <article key={entry.degree} className="mb-[0.7em] last:mb-0">
-                  <h3 className="text-[0.82em] leading-snug font-medium">
-                    {entry.degree}
-                  </h3>
-                  <p className="text-[0.77em] leading-snug text-muted">{entry.school}</p>
-                  <p className="text-[0.73em] text-muted tabular-nums">
-                    {entry.start} — {entry.end}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </Section>
+        <div className="mt-12 grid gap-10 border-t border-white/10 pt-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-16">
+          <p
+            className="rise max-w-[58ch] text-[15px] leading-[1.75] text-fog/75"
+            style={{ animationDelay: '420ms' }}
+          >
+            {cv.summary}
+          </p>
 
-          <Section title="Languages">
-            <ul className="flex flex-col gap-[0.1em] text-[0.78em] leading-[1.45] text-muted">
-              {cv.languages.map((language) => (
-                <li key={language}>{language}</li>
-              ))}
-            </ul>
-          </Section>
-        </aside>
+          <div className="rise" style={{ animationDelay: '540ms' }}>
+            <ContactLinks cv={cv} />
+          </div>
+        </div>
+      </header>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Stack ticker                                                     */}
+      {/* ---------------------------------------------------------------- */}
+      <div className="mt-16 sm:mt-20">
+        <Marquee items={stack} />
       </div>
-    </article>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* Body                                                             */}
+      {/* ---------------------------------------------------------------- */}
+      <div className="mt-20 grid gap-14 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-20">
+        <aside className="hidden lg:block">
+          <div className="sticky top-24">
+            <p className="font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
+              Index
+            </p>
+
+            <nav className="mt-4 flex flex-col gap-2.5">
+              {SECTIONS.map((section) => (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="group flex items-baseline gap-3 font-mono text-[10px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-fog"
+                >
+                  <span className="text-white/25 transition-colors group-hover:text-ember">
+                    {section.index}
+                  </span>
+                  {section.label}
+                </a>
+              ))}
+            </nav>
+
+            <div className="mt-8 h-px w-10 bg-white/10" />
+
+            <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-[0.14em] text-white/25 uppercase">
+              One page
+              <br />
+              A4 · PDF
+            </p>
+          </div>
+        </aside>
+
+        <div className="flex min-w-0 flex-col gap-24 sm:gap-32">
+          {/* ------------------------------------------------------------ */}
+          {/* Experience                                                   */}
+          {/* ------------------------------------------------------------ */}
+          <section id="experience" className="scroll-mt-24">
+            <Reveal>
+              <SectionHeading index="01" title="Experience" />
+            </Reveal>
+
+            <div className="mt-8">
+              {cv.experience.map((entry, index) => (
+                <Reveal key={`${entry.company ?? ''}-${entry.start}`} delay={index * 60}>
+                  <SpotlightCard className="group -mx-3 border-t border-white/10 px-3 py-9 first:border-t-0 first:pt-0">
+                    <div className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10">
+                      <div className="font-mono text-[10px] leading-relaxed tracking-[0.12em] text-dim uppercase">
+                        <span className="block">{entry.start}</span>
+                        <span className="block text-white/30">{entry.end}</span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-[23px] leading-tight font-semibold tracking-[-0.02em]">
+                          {entry.role}
+                        </h3>
+
+                        {entry.company && (
+                          <p className="mt-1.5 text-[13px] font-medium text-ember">
+                            {entry.company}
+                          </p>
+                        )}
+
+                        <ul className="mt-5 flex flex-col gap-2.5">
+                          {entry.bullets.map((bullet) => (
+                            <li
+                              key={bullet}
+                              className="flex gap-3 text-[14px] leading-[1.65] text-fog/70"
+                            >
+                              <span className="mt-[0.72em] h-px w-4 shrink-0 bg-ember/50" />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <ul className="mt-6 flex flex-wrap gap-2">
+                          {entry.tech.map((item) => (
+                            <li
+                              key={item}
+                              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 font-mono text-[10px] tracking-[0.1em] text-dim uppercase transition-colors hover:border-ember/40 hover:text-ember"
+                            >
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* ------------------------------------------------------------ */}
+          {/* Skills                                                       */}
+          {/* ------------------------------------------------------------ */}
+          <section id="skills" className="scroll-mt-24">
+            <Reveal>
+              <SectionHeading index="02" title="Skills" />
+            </Reveal>
+
+            <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+              {cv.skills.map((group, index) => (
+                <Reveal key={group.label} delay={index * 50}>
+                  <div className="group border-l border-white/10 pl-5 transition-colors hover:border-ember/50">
+                    <h3 className="font-mono text-[10px] tracking-[0.24em] text-ember uppercase">
+                      {group.label}
+                    </h3>
+                    <p className="mt-2.5 text-[14px] leading-[1.7] text-fog/75">
+                      {group.items.join('  ·  ')}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </section>
+
+          {/* ------------------------------------------------------------ */}
+          {/* Education                                                    */}
+          {/* ------------------------------------------------------------ */}
+          <section id="education" className="scroll-mt-24">
+            <Reveal>
+              <SectionHeading index="03" title="Education" />
+            </Reveal>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {cv.education.map((entry, index) => (
+                <Reveal key={entry.degree} delay={index * 80}>
+                  <div className="h-full rounded-lg border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-ember/30 hover:bg-white/[0.035]">
+                    <p className="font-mono text-[10px] tracking-[0.16em] text-dim">
+                      {entry.start} — {entry.end}
+                    </p>
+                    <h3 className="mt-3 text-[16px] leading-snug font-medium">
+                      {entry.degree}
+                    </h3>
+                    <p className="mt-1 text-[13px] text-dim">{entry.school}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal delay={100}>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <span className="font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
+                  Languages
+                </span>
+                {cv.languages.map((language) => (
+                  <span
+                    key={language}
+                    className="rounded-full border border-white/10 px-3 py-1 text-[12px] text-fog/75"
+                  >
+                    {language}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          </section>
+
+          {/* ------------------------------------------------------------ */}
+          {/* Contact / PDF                                                */}
+          {/* ------------------------------------------------------------ */}
+          <section id="contact" className="scroll-mt-24">
+            <Reveal>
+              <div className="relative overflow-hidden rounded-xl border border-white/10 bg-panel/60 p-8 sm:p-10">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-ember/20 blur-3xl"
+                />
+
+                <div className="relative sm:flex sm:items-center sm:justify-between sm:gap-12">
+                  <div>
+                    <p className="font-mono text-[10px] tracking-[0.24em] text-ember uppercase">
+                      One page · A4
+                    </p>
+                    <h2 className="mt-3 text-[28px] leading-tight font-semibold tracking-[-0.02em]">
+                      Prefer paper?
+                    </h2>
+                    <p className="mt-2 max-w-[46ch] text-[14px] leading-relaxed text-fog/65">
+                      The same content, typeset for print. Selectable text and
+                      clickable links, not a screenshot.
+                    </p>
+                  </div>
+
+                  <Magnetic className="mt-7 shrink-0 sm:mt-0">
+                    <a
+                      href="/cv.pdf"
+                      download="mihailo-tomisic-cv.pdf"
+                      className="group inline-flex items-center gap-3 rounded-full bg-ember px-6 py-3.5 text-[13px] font-semibold text-night transition-shadow hover:shadow-[0_0_40px_-4px_rgb(255_106_61/0.7)]"
+                    >
+                      Download PDF
+                      <span className="transition-transform group-hover:translate-y-0.5">
+                        ↓
+                      </span>
+                    </a>
+                  </Magnetic>
+                </div>
+
+                <div className="relative mt-8 border-t border-white/10 pt-6">
+                  <a
+                    className="group inline-flex items-center gap-2 text-[13px] text-fog/70 transition-colors hover:text-ember"
+                    href={`mailto:${cv.email}`}
+                  >
+                    {cv.email}
+                    <span className="transition-transform group-hover:translate-x-0.5">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </section>
+        </div>
+      </div>
+    </div>
   )
 }

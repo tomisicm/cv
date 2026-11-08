@@ -4,12 +4,22 @@
   --font-sans:
     var(--font-geist), ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
     sans-serif;
+  --font-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 
-  /* Restrained palette: readable in colour, still legible when printed B/W. */
+  /* --- print palette (PrintResume only) --- */
   --color-ink: #14161a;
   --color-muted: #5a6068;
   --color-rule: #d9dce2;
   --color-accent: #2c3e6b;
+
+  /* --- web palette (never referenced by the print route) --- */
+  --color-night: #090a0c;
+  --color-panel: #101218;
+  --color-fog: #eceef2;
+  --color-dim: #98a0ad;
+  --color-ember: #ff6a3d;
 }
 
 html {
@@ -17,13 +27,12 @@ html {
   print-color-adjust: exact;
 }
 
-/* ---------------------------------------------------------------------------
- * The A4 sheet.
+/* ===========================================================================
+ * PRINT — a real 210 × 297 mm sheet.
  *
- * `1em` is the design unit: every size inside the CV is expressed relative to
- * it, so the web preview and the PDF are proportionally identical. Only this
- * font-size changes between "dense print" and "comfortable web".
- * ------------------------------------------------------------------------- */
+ * `1em` is the design unit: everything inside PrintResume is sized relative to
+ * it. Nothing in the web section below may affect these rules.
+ * =========================================================================== */
 .a4-sheet {
   box-sizing: border-box;
   width: 210mm;
@@ -44,19 +53,246 @@ html {
   }
 }
 
-/* The on-screen document. Same proportions as the PDF, generous type. */
-.cv-web {
-  font-size: 15.2px;
-}
-
-@media (max-width: 640px) {
-  .cv-web {
-    font-size: 15.2px;
-  }
-}
-
-/* Exactly one page, and the sheet provides its own padding. */
 @page {
   size: A4;
   margin: 0;
+}
+
+/* ===========================================================================
+ * WEB
+ * =========================================================================== */
+@media screen {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: var(--color-ember);
+    color: var(--color-night);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2a2e36 transparent;
+  }
+
+  /* --- backdrop: warm glow, blueprint grid, film grain ------------------- */
+  .web-canvas {
+    background-color: var(--color-night);
+    background-image:
+      radial-gradient(
+        72% 46% at 50% -6%,
+        rgb(255 106 61 / 0.14),
+        transparent 70%
+      ),
+      linear-gradient(to right, rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.018) 1px, transparent 1px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+    background-size:
+      100% 100%,
+      96px 96px,
+      96px 96px,
+      180px 180px;
+    background-attachment: fixed;
+  }
+
+  /* --- aurora ----------------------------------------------------------- */
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .aurora-1 {
+    top: -22vw;
+    left: -12vw;
+    width: 52vw;
+    height: 52vw;
+    background: radial-gradient(circle, rgb(255 106 61 / 0.5), transparent 66%);
+    animation: aurora-a 24s ease-in-out infinite alternate;
+  }
+
+  .aurora-2 {
+    top: 6vh;
+    right: -14vw;
+    width: 44vw;
+    height: 44vw;
+    background: radial-gradient(circle, rgb(88 110 255 / 0.42), transparent 66%);
+    animation: aurora-b 30s ease-in-out infinite alternate;
+  }
+
+  .aurora-3 {
+    top: 46vh;
+    left: 26vw;
+    width: 46vw;
+    height: 46vw;
+    background: radial-gradient(circle, rgb(33 212 168 / 0.26), transparent 66%);
+    animation: aurora-c 36s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-a {
+    to {
+      transform: translate3d(9vw, 7vh, 0) scale(1.18);
+    }
+  }
+  @keyframes aurora-b {
+    to {
+      transform: translate3d(-8vw, 12vh, 0) scale(0.88);
+    }
+  }
+  @keyframes aurora-c {
+    to {
+      transform: translate3d(-10vw, -8vh, 0) scale(1.12);
+    }
+  }
+
+  /* --- scroll progress -------------------------------------------------- */
+  .scroll-progress {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      opacity: 1;
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    @keyframes progress-grow {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  /* --- marquee ---------------------------------------------------------- */
+  .marquee {
+    --marquee-fade: 6%;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--marquee-fade),
+      #000 calc(100% - var(--marquee-fade)),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--marquee-fade),
+      #000 calc(100% - var(--marquee-fade)),
+      transparent
+    );
+  }
+
+  .marquee-track {
+    animation: marquee 46s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* --- spotlight card --------------------------------------------------- */
+  .spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      360px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(255 106 61 / 0.13),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  /* --- entrance animations --------------------------------------------- */
+  /*
+   * Everything below is opt-in twice: `[data-js]` is set by an inline script
+   * before first paint (so a JS failure leaves the page fully visible), and
+   * `prefers-reduced-motion: no-preference` keeps motion optional.
+   */
+  .split-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.09em;
+  }
+
+  .split-word > span {
+    display: inline-block;
+  }
+
+  .rise {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-js] .split-word > span {
+      animation: split-in 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    [data-js] .rise {
+      animation: rise-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    [data-js] .reveal {
+      transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-js] .reveal:not(.is-in) {
+      opacity: 0;
+      transform: translateY(26px);
+    }
+  }
+
+  @keyframes split-in {
+    from {
+      transform: translateY(115%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .aurora-blob,
+    .marquee-track {
+      animation: none !important;
+    }
+  }
 }
