@@ -24,7 +24,12 @@ if (!existsSync(join(outDir, 'index.html'))) {
 }
 
 const { server, port } = await serve(outDir, 0)
-const browser = await puppeteer.launch()
+const browser = await puppeteer.launch({
+  args:
+    process.env.PUPPETEER_NO_SANDBOX === '1'
+      ? ['--no-sandbox', '--disable-setuid-sandbox']
+      : undefined,
+})
 
 try {
   const page = await browser.newPage()

@@ -66,8 +66,11 @@ const { server, port } = await serve(outDir, 0)
 const url = `http://127.0.0.1:${port}/print/`
 
 const browser = await puppeteer.launch({
-  // Uncomment when running as root or inside a container without a sandbox.
-  // args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  // Required when running as root inside a container (e.g. the Docker build).
+  args:
+    process.env.PUPPETEER_NO_SANDBOX === '1'
+      ? ['--no-sandbox', '--disable-setuid-sandbox']
+      : undefined,
 })
 
 try {

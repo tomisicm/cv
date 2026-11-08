@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.git
+.gitignore
+public/cv.pdf
+public/og.png
+*.tsbuildinfo
+next-env.d.ts
+README.md
