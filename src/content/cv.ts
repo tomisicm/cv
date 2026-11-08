@@ -92,9 +92,6 @@ export const cv: Cv = {
         {
           text: 'Built a mobile-first PWA that also works on desktop: pulls data from Fabric and Postgres, processes it with an LLM, and returns the result to the user.',
         },
-        {
-          text: 'Implemented the API layer and the ChatGPT integration behind it.',
-        },
       ],
       tech: [
         'Next.js',
