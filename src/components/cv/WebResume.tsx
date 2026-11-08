@@ -1,10 +1,11 @@
-import type { Cv } from '@/content/cv'
-import { Marquee } from '@/components/web/Marquee'
-import { Magnetic } from '@/components/web/Magnetic'
-import { LineSidebar } from '@/components/web/LineSidebar'
-import { Reveal } from '@/components/web/Reveal'
-import { SpotlightCard } from '@/components/web/SpotlightCard'
-import { SplitText } from '@/components/web/SplitText'
+import type { Cv } from '@/content/cv';
+import { Marquee } from '@/components/web/Marquee';
+import { Magnetic } from '@/components/web/Magnetic';
+import { LineSidebar } from '@/components/web/LineSidebar';
+import { Reveal } from '@/components/web/Reveal';
+import { SpotlightCard } from '@/components/web/SpotlightCard';
+import { SplitText } from '@/components/web/SplitText';
+import { FourierOrnament } from '@/components/web/FourierOrnament';
 
 /**
  * Website presentation. Completely independent of `PrintResume`: the PDF is
@@ -17,20 +18,20 @@ const SECTIONS = [
   { index: '02', id: 'skills', label: 'Skills' },
   { index: '03', id: 'education', label: 'Education' },
   { index: '04', id: 'contact', label: 'Contact' },
-]
+];
 
 function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
     <div className="flex items-baseline gap-4">
-      <span className="font-mono text-[10px] tracking-[0.18em] text-ember">
+      <span className="font-mono text-[10.5px] font-semibold tracking-[0.18em] text-ember">
         {index}
       </span>
-      <h2 className="font-mono text-[10px] font-medium tracking-[0.3em] text-dim uppercase">
+      <h2 className="font-mono text-[10.5px] font-semibold tracking-[0.3em] text-dim uppercase">
         {title}
       </h2>
       <span className="h-px flex-1 bg-white/10" />
     </div>
-  )
+  );
 }
 
 function ContactLinks({ cv }: { cv: Cv }) {
@@ -68,18 +69,18 @@ function ContactLinks({ cv }: { cv: Cv }) {
         </div>
       ))}
     </dl>
-  )
+  );
 }
 
 export function WebResume({ cv }: { cv: Cv }) {
-  const stack = Array.from(new Set(cv.skills.flatMap((group) => group.items)))
+  const stack = Array.from(new Set(cv.skills.flatMap((group) => group.items)));
 
   return (
     <div>
       {/* ---------------------------------------------------------------- */}
       {/* Hero                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <header className="pt-16 sm:pt-24">
+      <header className="relative pt-16 sm:pt-24">
         <div
           className="rise flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[10px] tracking-[0.22em] uppercase"
           style={{ animationDelay: '80ms' }}
@@ -95,12 +96,22 @@ export function WebResume({ cv }: { cv: Cv }) {
           <span className="text-dim">{cv.location}</span>
         </div>
 
-        <h1 className="mt-7 text-[clamp(3.2rem,10.5vw,9rem)] leading-[0.86] font-semibold tracking-[-0.05em]">
-          <SplitText text="Mihailo" delay={80} />
-          <br />
-          <SplitText text="Tomišić" delay={180} />
-          <span className="text-ember">.</span>
-        </h1>
+        <div className="relative mt-7">
+          {/* Desktop ornament: Fourier epicycles, centred on the name. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute top-1/2 right-0 hidden aspect-square w-[290px] -translate-y-1/2 text-fog lg:block xl:w-[340px] 2xl:w-[400px]"
+          >
+            <FourierOrnament />
+          </div>
+
+          <h1 className="text-[clamp(3.2rem,10.5vw,9rem)] leading-[0.86] font-semibold tracking-[-0.05em]">
+            <SplitText text="Mihailo" delay={80} />
+            <br />
+            <SplitText text="Tomišić" delay={180} />
+            <span className="text-ember">.</span>
+          </h1>
+        </div>
 
         <div className="mt-12 grid gap-10 border-t border-white/10 pt-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-16">
           <p
@@ -156,12 +167,15 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <div className="mt-8">
               {cv.experience.map((entry, index) => (
-                <Reveal key={`${entry.company ?? ''}-${entry.start}`} delay={index * 60}>
+                <Reveal
+                  key={`${entry.company ?? ''}-${entry.start}`}
+                  delay={index * 60}
+                >
                   <SpotlightCard className="group -mx-3 border-t border-white/10 px-3 py-9 first:border-t-0 first:pt-0">
                     <div className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10">
-                      <div className="font-mono text-[10px] leading-relaxed tracking-[0.12em] text-dim uppercase">
+                      <div className="font-mono text-[10.5px] leading-relaxed font-medium tracking-[0.12em] text-dim uppercase">
                         <span className="block">{entry.start}</span>
-                        <span className="block text-white/30">{entry.end}</span>
+                        <span className="block text-white/45">{entry.end}</span>
                       </div>
 
                       <div>
@@ -231,7 +245,7 @@ export function WebResume({ cv }: { cv: Cv }) {
               {cv.skills.map((group, index) => (
                 <Reveal key={group.label} delay={index * 50}>
                   <div className="group border-l border-white/10 pl-5 transition-colors hover:border-ember/50">
-                    <h3 className="font-mono text-[10px] tracking-[0.24em] text-ember uppercase">
+                    <h3 className="font-mono text-[10.5px] font-semibold tracking-[0.24em] text-ember uppercase">
                       {group.label}
                     </h3>
                     <p className="mt-2.5 text-[14px] leading-[1.7] text-fog/75">
@@ -255,7 +269,7 @@ export function WebResume({ cv }: { cv: Cv }) {
               {cv.education.map((entry, index) => (
                 <Reveal key={entry.degree} delay={index * 80}>
                   <div className="h-full rounded-lg border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-ember/30 hover:bg-white/[0.035]">
-                    <p className="font-mono text-[10px] tracking-[0.16em] text-dim">
+                    <p className="font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim">
                       {entry.start} — {entry.end}
                     </p>
                     <h3 className="mt-3 text-[16px] leading-snug font-medium">
@@ -269,7 +283,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <Reveal delay={100}>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <span className="font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
+                <span className="font-mono text-[10.5px] font-medium tracking-[0.24em] text-white/45 uppercase">
                   Languages
                 </span>
                 {cv.languages.map((language) => (
@@ -297,7 +311,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
                 <div className="relative sm:flex sm:items-center sm:justify-between sm:gap-12">
                   <div>
-                    <p className="font-mono text-[10px] tracking-[0.24em] text-ember uppercase">
+                    <p className="font-mono text-[10.5px] font-semibold tracking-[0.24em] text-ember uppercase">
                       One page · A4
                     </p>
                     <h2 className="mt-3 text-[28px] leading-tight font-semibold tracking-[-0.02em]">
@@ -340,5 +354,5 @@ export function WebResume({ cv }: { cv: Cv }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

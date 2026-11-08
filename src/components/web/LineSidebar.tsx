@@ -100,15 +100,15 @@ export function LineSidebar({ sections }: { sections: SidebarSection[] }) {
                   />
 
                   <span
-                    className={`font-mono text-[10px] tabular-nums transition-colors duration-300 motion-reduce:transition-none ${
-                      isMarker ? 'text-ember' : 'text-white/25'
+                    className={`font-mono text-[10.5px] font-semibold tabular-nums transition-colors duration-300 motion-reduce:transition-none ${
+                      isMarker ? 'text-ember' : 'text-white/40'
                     }`}
                   >
                     {section.index}
                   </span>
 
                   <span
-                    className={`font-mono text-[10px] tracking-[0.16em] uppercase transition-all duration-300 motion-reduce:transition-none ${
+                    className={`font-mono text-[10.5px] font-medium tracking-[0.16em] uppercase transition-all duration-300 motion-reduce:transition-none ${
                       isMarker
                         ? 'translate-x-0.5 text-fog'
                         : 'text-dim group-hover:text-fog'

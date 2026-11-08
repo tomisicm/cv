@@ -265,6 +265,67 @@ html {
     }
   }
 
+  /* --- watch movement --------------------------------------------------- */
+  @keyframes watch-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes watch-spin-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes watch-balance {
+    from {
+      transform: rotate(-16deg);
+    }
+    to {
+      transform: rotate(16deg);
+    }
+  }
+
+  .watch-gear,
+  .watch-balance {
+    transform-box: view-box;
+  }
+
+  .watch-gear-main {
+    transform-origin: 210px 245px;
+  }
+
+  .watch-gear-small {
+    transform-origin: 318px 128px;
+  }
+
+  .watch-gear-lower {
+    transform-origin: 330px 318px;
+  }
+
+  .watch-balance {
+    transform-origin: 92px 108px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .watch-gear-main {
+      animation: watch-spin 60s linear infinite;
+    }
+
+    .watch-gear-small {
+      animation: watch-spin-reverse 32s linear infinite;
+    }
+
+    .watch-gear-lower {
+      animation: watch-spin-reverse 27s linear infinite;
+    }
+
+    .watch-balance {
+      animation: watch-balance 2.4s ease-in-out infinite alternate;
+    }
+  }
+
   @keyframes split-in {
     from {
       transform: translateY(115%);

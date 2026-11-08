@@ -27,7 +27,7 @@ export default function HomePage() {
               <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[10px] font-bold text-night">
                 MT
               </span>
-              <span className="hidden font-mono text-[10px] tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
+              <span className="hidden font-mono text-[10.5px] font-medium tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
                 cv.tomisic.dev
               </span>
             </a>
@@ -37,7 +37,7 @@ export default function HomePage() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="font-mono text-[10px] tracking-[0.2em] text-dim uppercase transition-colors hover:text-fog"
+                  className="font-mono text-[10.5px] font-medium tracking-[0.2em] text-dim uppercase transition-colors hover:text-fog"
                 >
                   {item.label}
                 </a>
@@ -47,7 +47,7 @@ export default function HomePage() {
             <a
               href="/cv.pdf"
               download="mihailo-tomisic-cv.pdf"
-              className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-[10px] tracking-[0.16em] text-fog uppercase transition-colors hover:border-ember/60 hover:text-ember"
+              className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-[10.5px] font-medium tracking-[0.16em] text-fog uppercase transition-colors hover:border-ember/60 hover:text-ember"
             >
               PDF ↓
             </a>

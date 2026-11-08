@@ -209,6 +209,16 @@ export const cv: Cv = {
       items: ['Node.js', 'NestJS', 'Express', 'GraphQL'],
     },
     {
+      label: 'AI & LLM',
+      items: [
+        'DeepSeek & open-weight models',
+        'OpenCode',
+        'GitHub Copilot',
+        'Claude (certification in progress)',
+        'LLM integration',
+      ],
+    },
+    {
       label: 'Frontend',
       items: ['React', 'Next.js', 'Vue', 'Gatsby', 'Tailwind'],
     },
