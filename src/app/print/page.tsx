@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { cv } from '@/content/cv'
-import { CvDocument } from '@/components/cv/CvDocument'
+import { PrintResume } from '@/components/cv/PrintResume'
 
 export const metadata: Metadata = {
   title: `${cv.name} — print`,
@@ -18,7 +18,7 @@ export default function PrintPage() {
   return (
     <main className="a4-sheet">
       <div data-cv-content className="h-full">
-        <CvDocument cv={cv} variant="single" />
+        <PrintResume cv={cv} />
       </div>
     </main>
   )

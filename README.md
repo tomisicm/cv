@@ -17,28 +17,31 @@ pnpm serve        # preview the exported site on :4173
 ## How it works
 
 ```
-src/content/cv.ts          single source of truth (typed)
+src/content/cv.ts                    single source of truth (typed)
         │
-        ├── src/app/page.tsx        responsive web version
-        └── src/app/print/page.tsx  fixed 210 × 297 mm sheet
-                    │
-                    └── scripts/generate-pdf.mjs
-                          headless Chrome → page.pdf()
-                          → public/cv.pdf + out/cv.pdf
+        ├── WebResume   → src/app/page.tsx          restyle freely
+        └── PrintResume → src/app/print/page.tsx    210 × 297 mm, ATS-safe
+                              │
+                              └── scripts/generate-pdf.mjs
+                                    headless Chrome → page.pdf()
+                                    → public/cv.pdf + out/cv.pdf
 ```
 
-`CvDocument` is rendered by both routes, so the content can never drift apart.
-It has two variants:
+There are two presentations of one document:
 
-- `columns` — two-column layout, used by the website
-- `single` — one-column stack, used by `/print/`
+- `WebResume` — two columns, responsive, yours to style. Nothing you do here can
+  change the PDF.
+- `PrintResume` — one column, deliberately plain.
 
-The PDF needs the single column because Chrome emits PDF text in a global
-top-to-bottom order: side-by-side blocks interleave, so a copied paragraph comes
-out as `the person whoLanguages unblocks a team`. One column keeps every
-sentence intact for copy-paste, screen readers, and ATS parsers.
+Both read `content/cv.ts`, so the facts exist in exactly one place. Only the
+markup is duplicated, which is what makes the two independently restylable.
 
-Everything inside the document is sized in `em`, so only the container changes
+The PDF needs `PrintResume` to be single-column because Chrome emits PDF text in
+a global top-to-bottom order: side-by-side blocks interleave, so a copied
+paragraph comes out as `the person whoLanguages unblocks a team`. One column
+keeps every sentence intact for copy-paste, screen readers, and ATS parsers.
+
+Everything inside both documents is sized in `em`, so only the container changes
 `font-size` (15.2px for print, 16px for web).
 
 ## The PDF is verified, not assumed

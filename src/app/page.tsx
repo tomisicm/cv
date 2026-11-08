@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { cv } from '@/content/cv'
-import { CvDocument } from '@/components/cv/CvDocument'
+import { WebResume } from '@/components/cv/WebResume'
 
 export default function HomePage() {
   return (
@@ -30,7 +30,7 @@ export default function HomePage() {
 
         {/* The web preview: same document, more generous type, fluid width. */}
         <div className="cv-web rounded-sm bg-white p-6 shadow-[0_1px_2px_rgb(0_0_0/0.06),0_12px_32px_-8px_rgb(0_0_0/0.18)] sm:p-10">
-          <CvDocument cv={cv} />
+          <WebResume cv={cv} />
         </div>
 
         <p className="mt-5 text-center text-[12px] text-muted">
