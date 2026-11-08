@@ -12,32 +12,45 @@ const NAV = [
   { href: '#contact', label: 'Contact' },
 ]
 
-/** Structured data so search engines can build a Person entity for the name. */
-const PERSON_SCHEMA = {
+/**
+ * Structured data so search engines can build a Person entity for the name.
+ *
+ * `ProfilePage` is the Google-supported type for a page whose subject is a
+ * single person; a bare `Person` object is valid Schema.org but not a rich
+ * result type, so the Rich Results Test reports nothing for it.
+ * See https://developers.google.com/search/docs/appearance/structured-data/profile-page
+ */
+const PROFILE_SCHEMA = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: cv.name,
-  jobTitle: cv.role,
-  email: `mailto:${cv.email}`,
-  url: 'https://cv.tomisic.dev',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Novi Sad',
-    addressCountry: 'RS',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: cv.name,
+    // Unaccented spellings people actually type, so both forms resolve here.
+    alternateName: ['Mihailo Tomisic', 'Mihailo Tomisic CV'],
+    jobTitle: cv.role,
+    description: cv.summary,
+    email: cv.email,
+    url: 'https://cv.tomisic.dev',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Novi Sad',
+      addressCountry: 'RS',
+    },
+    sameAs: cv.links.map((link) => link.href),
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'University of Novi Sad',
+    },
+    knowsAbout: [
+      'TypeScript',
+      'React',
+      'Node.js',
+      'PostgreSQL',
+      'AWS',
+      'LLM integration',
+    ],
   },
-  sameAs: cv.links.map((link) => link.href),
-  alumniOf: {
-    '@type': 'CollegeOrUniversity',
-    name: 'University of Novi Sad',
-  },
-  knowsAbout: [
-    'TypeScript',
-    'React',
-    'Node.js',
-    'PostgreSQL',
-    'AWS',
-    'LLM integration',
-  ],
 }
 
 export default function HomePage() {
@@ -48,7 +61,7 @@ export default function HomePage() {
     >
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_SCHEMA) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PROFILE_SCHEMA) }}
       />
       <Aurora />
       <ScrollProgress />
