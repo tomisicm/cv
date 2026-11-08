@@ -18,7 +18,7 @@ export default function PrintPage() {
   return (
     <main className="a4-sheet">
       <div data-cv-content className="h-full">
-        <CvDocument cv={cv} />
+        <CvDocument cv={cv} variant="single" />
       </div>
     </main>
   )

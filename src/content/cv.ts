@@ -68,10 +68,10 @@ export const cv: Cv = {
 
   summary:
     'Fullstack engineer with a background in applied mathematics and nine years ' +
-    'of building products end to end across e-commerce, healthcare, and ' +
-    'scientific data platforms. I optimise for being the person who unblocks a ' +
-    'team: taking ambiguous problems from architecture to production, and making ' +
-    'the critical paths testable and observable.',
+    'of building products across e-commerce, healthcare, and scientific data ' +
+    'platforms. I work best as the connective tissue in a team — turning ' +
+    'ambiguous requirements into a plan, and keeping the people around me ' +
+    'unblocked.',
 
   experience: [
     {

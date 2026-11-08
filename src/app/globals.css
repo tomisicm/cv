@@ -31,7 +31,7 @@ html {
   padding: 13mm 14mm;
   background: #fff;
   color: var(--color-ink);
-  font-size: 15.7px;
+  font-size: 15.2px;
   overflow: hidden;
 }
 
@@ -46,12 +46,12 @@ html {
 
 /* The on-screen document. Same proportions as the PDF, generous type. */
 .cv-web {
-  font-size: 16px;
+  font-size: 15.2px;
 }
 
 @media (max-width: 640px) {
   .cv-web {
-    font-size: 13.5px;
+    font-size: 15.2px;
   }
 }
 

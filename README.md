@@ -27,9 +27,19 @@ src/content/cv.ts          single source of truth (typed)
                           → public/cv.pdf + out/cv.pdf
 ```
 
-`CvDocument` is rendered by both routes, so the preview and the PDF cannot drift
-apart. Everything inside the document is sized in `em`; only the container
-changes `font-size` (15.7px for print, 16px for web).
+`CvDocument` is rendered by both routes, so the content can never drift apart.
+It has two variants:
+
+- `columns` — two-column layout, used by the website
+- `single` — one-column stack, used by `/print/`
+
+The PDF needs the single column because Chrome emits PDF text in a global
+top-to-bottom order: side-by-side blocks interleave, so a copied paragraph comes
+out as `the person whoLanguages unblocks a team`. One column keeps every
+sentence intact for copy-paste, screen readers, and ATS parsers.
+
+Everything inside the document is sized in `em`, so only the container changes
+`font-size` (15.2px for print, 16px for web).
 
 ## The PDF is verified, not assumed
 
@@ -46,7 +56,6 @@ Current output: 1 page, ~94% of the page height, ~2000 extractable characters.
 
 This matters because an image-based PDF is invisible to ATS parsers, cannot be
 selected or searched, and does not reflow.
-
 ## Editing
 
 Change `src/content/cv.ts`, then run `pnpm build:pdf`. If the copy grows past one
