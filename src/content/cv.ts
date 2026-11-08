@@ -85,7 +85,6 @@ export const cv: Cv = {
     {
       role: 'Senior Software Engineer',
       company: 'EPAM Systems',
-      client: 'HelleniQ Energy',
       start: 'Mar 2026',
       end: 'Present',
       bullets: [
@@ -236,7 +235,7 @@ export const cv: Cv = {
     },
     {
       label: 'Platform',
-      items: ['Docker', 'AWS', 'GCP', 'Azure SSO', 'CI/CD'],
+      items: ['Docker', 'Kubernetes', 'AWS', 'GCP', 'CI/CD'],
     },
   ],
 

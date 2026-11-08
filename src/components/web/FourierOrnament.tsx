@@ -80,7 +80,7 @@ export function FourierOrnament({ className = '' }: { className?: string }) {
         else context.lineTo(x, y)
       }
       context.strokeStyle = `rgba(${rgb}, ${reduceMotion ? 0.5 : 0.12})`
-      context.lineWidth = 1
+      context.lineWidth = 1.4
       context.stroke()
 
       // joints of the epicycle chain
@@ -114,8 +114,8 @@ export function FourierOrnament({ className = '' }: { className?: string }) {
       for (const [joint, radius] of circles) {
         context.beginPath()
         context.arc(joint.x, joint.y, radius, 0, Math.PI * 2)
-        context.strokeStyle = `rgba(${rgb}, 0.14)`
-        context.lineWidth = 0.9
+        context.strokeStyle = `rgba(${rgb}, 0.18)`
+        context.lineWidth = 1.5
         context.stroke()
       }
 
@@ -126,8 +126,8 @@ export function FourierOrnament({ className = '' }: { className?: string }) {
       context.lineTo(p2.x, p2.y)
       context.lineTo(p3.x, p3.y)
       context.lineTo(tip.x, tip.y)
-      context.strokeStyle = `rgba(${rgb}, 0.24)`
-      context.lineWidth = 0.9
+      context.strokeStyle = `rgba(${rgb}, 0.26)`
+      context.lineWidth = 1.4
       context.stroke()
 
       // joints
@@ -154,18 +154,18 @@ export function FourierOrnament({ className = '' }: { className?: string }) {
           context.lineTo(current.x, current.y)
 
           context.strokeStyle = `rgba(${rgb}, ${alpha * 0.16})`
-          context.lineWidth = 5
+          context.lineWidth = 7
           context.stroke()
 
           context.strokeStyle = `rgba(${rgb}, ${alpha})`
-          context.lineWidth = 1.7
+          context.lineWidth = 2.4
           context.stroke()
         }
       }
 
       // tip
       context.beginPath()
-      context.arc(tip.x, tip.y, 3.4, 0, Math.PI * 2)
+      context.arc(tip.x, tip.y, 4.8, 0, Math.PI * 2)
       context.fillStyle = `rgba(${rgb}, 0.95)`
       context.fill()
 

@@ -36,11 +36,11 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
 
 function ContactLinks({ cv }: { cv: Cv }) {
   return (
-    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11px]">
-      <dt className="text-white/30">LOC</dt>
+    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11.5px]">
+      <dt className="text-white/40">LOC</dt>
       <dd className="text-fog/80">{cv.location}</dd>
 
-      <dt className="text-white/30">MAIL</dt>
+      <dt className="text-white/40">MAIL</dt>
       <dd>
         <a
           className="text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
@@ -52,7 +52,7 @@ function ContactLinks({ cv }: { cv: Cv }) {
 
       {cv.links.map((link) => (
         <div key={link.href} className="contents">
-          <dt className="text-white/30">{link.label.toUpperCase()}</dt>
+          <dt className="text-white/40">{link.label.toUpperCase()}</dt>
           <dd>
             <a
               className="group inline-flex items-center gap-1 text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
@@ -100,7 +100,7 @@ export function WebResume({ cv }: { cv: Cv }) {
           {/* Desktop ornament: Fourier epicycles, centred on the name. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute top-1/2 right-0 hidden aspect-square w-[290px] -translate-y-1/2 text-fog lg:block xl:w-[340px] 2xl:w-[400px]"
+            className="pointer-events-none absolute top-1/2 right-0 hidden aspect-square w-[435px] -translate-y-1/2 text-fog lg:block xl:w-[510px] 2xl:w-[600px]"
           >
             <FourierOrnament />
           </div>
@@ -174,8 +174,8 @@ export function WebResume({ cv }: { cv: Cv }) {
                   <SpotlightCard className="group -mx-3 border-t border-white/10 px-3 py-9 first:border-t-0 first:pt-0">
                     <div className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10">
                       <div className="font-mono text-[10.5px] leading-relaxed font-medium tracking-[0.12em] text-dim uppercase">
-                        <span className="block">{entry.start}</span>
                         <span className="block text-white/45">{entry.end}</span>
+                        <span className="block">{entry.start}</span>
                       </div>
 
                       <div>
