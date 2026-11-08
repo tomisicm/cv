@@ -101,7 +101,7 @@ export function LineSidebar({ sections }: { sections: SidebarSection[] }) {
 
                   <span
                     className={`font-mono text-[10.5px] font-semibold tabular-nums transition-colors duration-300 motion-reduce:transition-none ${
-                      isMarker ? 'text-ember' : 'text-white/40'
+                      isMarker ? 'text-ember' : 'text-fog/60'
                     }`}
                   >
                     {section.index}

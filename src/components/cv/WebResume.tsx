@@ -37,10 +37,10 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
 function ContactLinks({ cv }: { cv: Cv }) {
   return (
     <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11.5px]">
-      <dt className="text-white/40">LOC</dt>
+      <dt className="text-fog/60">LOC</dt>
       <dd className="text-fog/80">{cv.location}</dd>
 
-      <dt className="text-white/40">MAIL</dt>
+      <dt className="text-fog/60">MAIL</dt>
       <dd>
         <a
           className="text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
@@ -52,14 +52,14 @@ function ContactLinks({ cv }: { cv: Cv }) {
 
       {cv.availability && (
         <>
-          <dt className="text-white/40">STATUS</dt>
+          <dt className="text-fog/60">STATUS</dt>
           <dd className="text-fog/90">{cv.availability}</dd>
         </>
       )}
 
       {cv.links.map((link) => (
         <div key={link.href} className="contents">
-          <dt className="text-white/40">{link.label.toUpperCase()}</dt>
+          <dt className="text-fog/60">{link.label.toUpperCase()}</dt>
           <dd>
             <a
               className="group inline-flex items-center gap-1 text-fog/80 underline-offset-4 transition-colors hover:text-ember hover:underline"
@@ -147,7 +147,7 @@ export function WebResume({ cv }: { cv: Cv }) {
       <div className="mt-20 grid gap-14 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-20">
         <aside className="hidden lg:block">
           <div className="sticky top-24">
-            <p className="mb-4 font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
+            <p className="mb-4 font-mono text-[10px] tracking-[0.24em] text-fog/55 uppercase">
               Index
             </p>
 
@@ -155,7 +155,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <div className="mt-8 h-px w-10 bg-white/10" />
 
-            <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-[0.14em] text-white/25 uppercase">
+            <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-[0.14em] text-fog/55 uppercase">
               One page
               <br />
               A4 · PDF
@@ -181,7 +181,7 @@ export function WebResume({ cv }: { cv: Cv }) {
                   <SpotlightCard className="group -mx-3 border-t border-white/10 px-3 py-9 first:border-t-0 first:pt-0">
                     <div className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10">
                       <div className="font-mono text-[10.5px] leading-relaxed font-medium tracking-[0.12em] text-dim uppercase">
-                        <span className="block text-white/45">{entry.end}</span>
+                        <span className="block text-fog/60">{entry.end}</span>
                         <span className="block">{entry.start}</span>
                       </div>
 
@@ -290,7 +290,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <Reveal delay={100}>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <span className="font-mono text-[10.5px] font-medium tracking-[0.24em] text-white/45 uppercase">
+                <span className="font-mono text-[10.5px] font-medium tracking-[0.24em] text-fog/60 uppercase">
                   Languages
                 </span>
                 {cv.languages.map((language) => (

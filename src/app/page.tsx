@@ -101,7 +101,7 @@ export default function HomePage() {
 
           <div className="mx-auto max-w-[1180px] px-5 pb-10 sm:px-8">
             <div className="flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="font-mono text-[10px] tracking-[0.16em] text-white/30 uppercase">
+              <p className="font-mono text-[10px] tracking-[0.16em] text-fog/60 uppercase">
                 © {new Date().getFullYear()} Mihailo Tomišić
               </p>
 
@@ -127,7 +127,7 @@ export default function HomePage() {
                 </a>
               </div>
 
-              <p className="font-mono text-[10px] tracking-[0.16em] text-white/20 uppercase">
+              <p className="font-mono text-[10px] tracking-[0.16em] text-fog/50 uppercase">
                 Next.js · static export
               </p>
             </div>

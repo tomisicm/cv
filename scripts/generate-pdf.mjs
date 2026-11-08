@@ -17,6 +17,7 @@ import { existsSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import puppeteer from 'puppeteer'
+import { PDFDocument } from 'pdf-lib'
 import { serve } from './static-server.mjs'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -118,12 +119,36 @@ try {
   // ------------------------------------------------------------------ printing
   await mkdir(dirname(publicPdf), { recursive: true })
 
-  const buffer = await page.pdf({
+  const rawPdf = await page.pdf({
     format: 'A4',
     printBackground: true,
     preferCSSPageSize: true,
     margin: { top: 0, right: 0, bottom: 0, left: 0 },
   })
+
+  // Chrome only fills in Title/Creator. Set the rest so the file is not
+  // anonymous when it lands in a recruiter's viewer or Drive.
+  const documentMeta = await page.evaluate(() => ({
+    title: document.title,
+    author:
+      document.querySelector('meta[name="author"]')?.getAttribute('content') ??
+      '',
+  }))
+
+  const pdf = await PDFDocument.load(rawPdf)
+  pdf.setTitle(documentMeta.title)
+  if (documentMeta.author) pdf.setAuthor(documentMeta.author)
+  pdf.setSubject('Curriculum Vitae')
+  pdf.setKeywords([
+    'CV',
+    'curriculum vitae',
+    'software engineer',
+    'Mihailo Tomišić',
+  ])
+  pdf.setCreator('cv.tomisic.dev')
+  pdf.setProducer('cv.tomisic.dev')
+
+  const buffer = await pdf.save()
 
   // ------------------------------------------------------------- verification
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs')
