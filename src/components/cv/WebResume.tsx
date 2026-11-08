@@ -184,17 +184,31 @@ export function WebResume({ cv }: { cv: Cv }) {
                         {entry.company && (
                           <p className="mt-1.5 text-[13px] font-medium text-ember">
                             {entry.company}
+                            {entry.client && (
+                              <span className="font-normal text-dim">
+                                {' · client: '}
+                                {entry.client}
+                              </span>
+                            )}
                           </p>
                         )}
 
                         <ul className="mt-5 flex flex-col gap-2.5">
                           {entry.bullets.map((bullet) => (
                             <li
-                              key={bullet}
-                              className="flex gap-3 text-[14px] leading-[1.65] text-fog/70"
+                              key={bullet.text}
+                              className={`flex gap-3 text-[14px] leading-[1.65] ${
+                                bullet.highlight ? 'text-fog/90' : 'text-fog/70'
+                              }`}
                             >
-                              <span className="mt-[0.72em] h-px w-4 shrink-0 bg-ember/50" />
-                              <span>{bullet}</span>
+                              <span
+                                className={`mt-[0.72em] shrink-0 ${
+                                  bullet.highlight
+                                    ? 'h-[2px] w-5 bg-ember'
+                                    : 'h-px w-4 bg-ember/50'
+                                }`}
+                              />
+                              <span>{bullet.text}</span>
                             </li>
                           ))}
                         </ul>

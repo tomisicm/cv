@@ -25,6 +25,12 @@ function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
       {entry.company && (
         <p className="text-[0.85em] leading-snug font-medium text-accent">
           {entry.company}
+          {entry.client && (
+            <span className="font-normal text-muted">
+              {' · client: '}
+              {entry.client}
+            </span>
+          )}
           {entry.location && (
             <span className="font-normal text-muted"> · {entry.location}</span>
           )}
@@ -33,8 +39,15 @@ function ExperienceEntry({ entry }: { entry: Cv['experience'][number] }) {
 
       <ul className="mt-[0.3em] flex list-disc flex-col gap-[0.2em] pl-[1em] marker:text-muted">
         {entry.bullets.map((bullet) => (
-          <li key={bullet} className="text-[0.81em] leading-[1.45] text-ink">
-            {bullet}
+          <li
+            key={bullet.text}
+            className={
+              bullet.highlight
+                ? 'text-[0.81em] leading-[1.45] font-medium text-ink'
+                : 'text-[0.81em] leading-[1.45] text-ink'
+            }
+          >
+            {bullet.text}
           </li>
         ))}
       </ul>

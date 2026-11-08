@@ -13,13 +13,21 @@ export interface CvLink {
   display: string
 }
 
+export interface CvBullet {
+  text: string
+  /** Rendered with emphasis — the lead achievement of the role. */
+  highlight?: boolean
+}
+
 export interface CvExperienceEntry {
   role: string
   company?: string
+  /** End client, for consulting/outsourcing engagements. */
+  client?: string
   location?: string
   start: string
   end: string
-  bullets: string[]
+  bullets: CvBullet[]
   tech: string[]
 }
 
@@ -77,12 +85,20 @@ export const cv: Cv = {
     {
       role: 'Senior Software Engineer',
       company: 'EPAM Systems',
+      client: 'AstraZeneca',
       start: 'Jun 2022',
-      end: 'Present',
+      end: 'Mar 2026',
       bullets: [
-        'Bootstrapped two mid-sized projects from greenfield architecture through production release and ongoing support.',
-        'Built data extraction and transformation automation with the R&D team, replacing manual pipelines.',
-        'Building a compound-data platform (PubChem-like) for scientific search and comparison workflows.',
+        {
+          text: 'Building a compound-data platform (PubChem-like) for scientific search and comparison workflows.',
+          highlight: true,
+        },
+        {
+          text: 'Bootstrapped two mid-sized projects from greenfield architecture through production release and ongoing support.',
+        },
+        {
+          text: 'Built data extraction and transformation automation with the R&D team, replacing manual pipelines.',
+        },
       ],
       tech: [
         'TypeScript',
@@ -103,8 +119,12 @@ export const cv: Cv = {
       start: 'Oct 2021',
       end: 'Jun 2022',
       bullets: [
-        'Built scalable, compliant digital medical services on a NestJS microservice architecture.',
-        'Concentrated test coverage on the highest-risk paths and documented the systems through their support lifecycle.',
+        {
+          text: 'Built scalable, compliant digital medical services on a NestJS microservice architecture.',
+        },
+        {
+          text: 'Concentrated test coverage on the highest-risk paths and documented the systems through their support lifecycle.',
+        },
       ],
       tech: [
         'NestJS',
@@ -123,8 +143,12 @@ export const cv: Cv = {
       start: '2019',
       end: 'Sep 2021',
       bullets: [
-        'Delivered e-commerce PWAs on Magento 2 and Vue Storefront, extending and upgrading existing codebases.',
-        'Integrated third-party services and mentored junior developers through delivery.',
+        {
+          text: 'Delivered e-commerce PWAs on Magento 2 and Vue Storefront, extending and upgrading existing codebases.',
+        },
+        {
+          text: 'Integrated third-party services and mentored junior developers through delivery.',
+        },
       ],
       tech: [
         'Magento 2',
@@ -141,8 +165,12 @@ export const cv: Cv = {
       start: '2017',
       end: '2019',
       bullets: [
-        'Defined test specifications with engineering, ran root-cause analysis, and maintained defect reporting.',
-        'Built and executed automated test suites, reducing manual regression effort.',
+        {
+          text: 'Defined test specifications with engineering, ran root-cause analysis, and maintained defect reporting.',
+        },
+        {
+          text: 'Built and executed automated test suites, reducing manual regression effort.',
+        },
       ],
       tech: ['Java', 'Python', 'Selenium', 'TestRail', 'Jira'],
     },
