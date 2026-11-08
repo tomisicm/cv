@@ -1,6 +1,7 @@
 import type { Cv } from '@/content/cv'
 import { Marquee } from '@/components/web/Marquee'
 import { Magnetic } from '@/components/web/Magnetic'
+import { LineSidebar } from '@/components/web/LineSidebar'
 import { Reveal } from '@/components/web/Reveal'
 import { SpotlightCard } from '@/components/web/SpotlightCard'
 import { SplitText } from '@/components/web/SplitText'
@@ -128,24 +129,11 @@ export function WebResume({ cv }: { cv: Cv }) {
       <div className="mt-20 grid gap-14 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-20">
         <aside className="hidden lg:block">
           <div className="sticky top-24">
-            <p className="font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
+            <p className="mb-4 font-mono text-[10px] tracking-[0.24em] text-white/30 uppercase">
               Index
             </p>
 
-            <nav className="mt-4 flex flex-col gap-2.5">
-              {SECTIONS.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="group flex items-baseline gap-3 font-mono text-[10px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-fog"
-                >
-                  <span className="text-white/25 transition-colors group-hover:text-ember">
-                    {section.index}
-                  </span>
-                  {section.label}
-                </a>
-              ))}
-            </nav>
+            <LineSidebar sections={SECTIONS} />
 
             <div className="mt-8 h-px w-10 bg-white/10" />
 
