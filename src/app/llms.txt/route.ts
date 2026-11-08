@@ -23,6 +23,9 @@ function buildDocument(): string {
   lines.push(
     '- CV, one page A4 PDF: https://cv.tomisic.dev/cv.pdf',
     '- Website: https://cv.tomisic.dev',
+    '- Work case study: https://cv.tomisic.dev/work',
+    '- Other project: renovateIT, a renovation marketplace (NestJS, Next.js, Postgres, Redis) that was not launched',
+    '- Walkthrough of the time-tracking platform available on request',
   )
 
   for (const link of cv.links) {

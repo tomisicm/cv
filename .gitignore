@@ -22,3 +22,6 @@ yarn-error.log*
 
 # generated social card
 /public/og.png
+
+# personal scratch notes
+docs/todo.md

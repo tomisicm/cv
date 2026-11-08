@@ -8,6 +8,7 @@ import { geistMono } from './web-fonts'
 const NAV = [
   { href: '#experience', label: 'Experience' },
   { href: '#skills', label: 'Skills' },
+  { href: '/work', label: 'Work' },
   { href: '#education', label: 'Education' },
   { href: '#contact', label: 'Contact' },
 ]
