@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={geist.variable} suppressHydrationWarning>
       <body className="font-sans antialiased">
         {/* Marks the document before first paint. All entrance animations are
             gated on this, so a JS failure leaves the page fully readable. */}
