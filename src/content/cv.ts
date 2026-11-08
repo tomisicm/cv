@@ -151,7 +151,7 @@ export const cv: Cv = {
   skills: [
     {
       label: 'Languages',
-      items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Java'],
+      items: ['TypeScript', 'JavaScript', 'Python', 'SQL'],
     },
     {
       label: 'Backend',
