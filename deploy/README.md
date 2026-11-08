@@ -14,6 +14,10 @@ curl -I http://127.0.0.1:3333/cv.pdf    # 200, application/pdf
 curl -s http://127.0.0.1:3333/health    # 200
 ```
 
+On the server, `./deploy.sh` does all of it: pulls `main`, rebuilds the image
+(regenerating `cv.pdf` and `og.png`), restarts, waits for `/health`, then prints
+status codes for `/`, `/cv.pdf` and `/llms.txt`.
+
 The port is published on `127.0.0.1` only. Do not change that to `0.0.0.0` —
 cloudflared is the only public entrance.
 
