@@ -11,12 +11,44 @@ const NAV = [
   { href: '#contact', label: 'Contact' },
 ]
 
+/** Structured data so search engines can build a Person entity for the name. */
+const PERSON_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: cv.name,
+  jobTitle: cv.role,
+  email: `mailto:${cv.email}`,
+  url: 'https://cv.tomisic.dev',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Novi Sad',
+    addressCountry: 'RS',
+  },
+  sameAs: cv.links.map((link) => link.href),
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University of Novi Sad',
+  },
+  knowsAbout: [
+    'TypeScript',
+    'React',
+    'Node.js',
+    'PostgreSQL',
+    'AWS',
+    'LLM integration',
+  ],
+}
+
 export default function HomePage() {
   return (
     <div
       id="top"
       className={`${geistMono.variable} web-canvas relative min-h-screen text-fog`}
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(PERSON_SCHEMA) }}
+      />
       <Aurora />
       <ScrollProgress />
 
