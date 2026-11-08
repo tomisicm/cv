@@ -63,7 +63,7 @@ export const cv: Cv = {
   role: 'Senior Software Engineer',
   location: 'Novi Sad, Serbia',
   availability: 'Open to part-time consulting',
-  email: 'mihailo.tomisic@gmail.com',
+  email: 'cv@tomisic.dev',
   links: [
     {
       label: 'GitHub',
