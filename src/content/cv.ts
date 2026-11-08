@@ -67,9 +67,9 @@ export const cv: Cv = {
   ],
 
   summary:
-    'Fullstack engineer with a background in applied mathematics and nine years ' +
-    'of building products across e-commerce, healthcare, and scientific data ' +
-    'platforms. I work best as the connective tissue in a team — turning ' +
+    'Fullstack engineer with a backend focus, an applied mathematics ' +
+    'background, and nine years across e-commerce, healthcare, and scientific ' +
+    'data platforms. I work best as the connective tissue in a team — turning ' +
     'ambiguous requirements into a plan, and keeping the people around me ' +
     'unblocked.',
 
@@ -82,7 +82,7 @@ export const cv: Cv = {
       bullets: [
         'Bootstrapped two mid-sized projects from greenfield architecture through production release and ongoing support.',
         'Built data extraction and transformation automation with the R&D team, replacing manual pipelines.',
-        'Develop a compound-data platform (PubChem-like) for scientific search and comparison workflows.',
+        'Building a compound-data platform (PubChem-like) for scientific search and comparison workflows.',
       ],
       tech: [
         'TypeScript',
@@ -154,12 +154,12 @@ export const cv: Cv = {
       items: ['TypeScript', 'JavaScript', 'Python', 'SQL', 'Java'],
     },
     {
-      label: 'Frontend',
-      items: ['React', 'Next.js', 'Vue', 'Gatsby', 'Tailwind'],
-    },
-    {
       label: 'Backend',
       items: ['Node.js', 'NestJS', 'Express', 'GraphQL'],
+    },
+    {
+      label: 'Frontend',
+      items: ['React', 'Next.js', 'Vue', 'Gatsby', 'Tailwind'],
     },
     {
       label: 'Data',
