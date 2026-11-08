@@ -2,6 +2,7 @@ import { cv } from '@/content/cv'
 import { WebResume } from '@/components/cv/WebResume'
 import { Aurora } from '@/components/web/Aurora'
 import { ScrollProgress } from '@/components/web/ScrollProgress'
+import { WebMcpTools } from '@/components/web/WebMcpTools'
 import { geistMono } from './web-fonts'
 
 const NAV = [
@@ -51,6 +52,7 @@ export default function HomePage() {
       />
       <Aurora />
       <ScrollProgress />
+      <WebMcpTools cv={cv} />
 
       <div className="relative z-10">
         <header className="sticky top-0 z-50 border-b border-white/10 bg-night/60 backdrop-blur-xl">

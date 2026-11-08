@@ -50,6 +50,13 @@ function ContactLinks({ cv }: { cv: Cv }) {
         </a>
       </dd>
 
+      {cv.availability && (
+        <>
+          <dt className="text-white/40">STATUS</dt>
+          <dd className="text-fog/90">{cv.availability}</dd>
+        </>
+      )}
+
       {cv.links.map((link) => (
         <div key={link.href} className="contents">
           <dt className="text-white/40">{link.label.toUpperCase()}</dt>

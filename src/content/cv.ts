@@ -48,6 +48,8 @@ export interface Cv {
   role: string
   location: string
   email: string
+  /** Short availability line shown on the website, e.g. consulting. */
+  availability?: string
   links: CvLink[]
   summary: string
   experience: CvExperienceEntry[]
@@ -60,6 +62,7 @@ export const cv: Cv = {
   name: 'Mihailo Tomišić',
   role: 'Senior Software Engineer',
   location: 'Novi Sad, Serbia',
+  availability: 'Open to part-time consulting',
   email: 'mihailo.tomisic@gmail.com',
   links: [
     {
