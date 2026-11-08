@@ -3,7 +3,7 @@ import { cv } from '@/content/cv'
 import { PrintResume } from '@/components/cv/PrintResume'
 
 export const metadata: Metadata = {
-  title: { absolute: `${cv.name} — print` },
+  title: { absolute: `${cv.name} — ${cv.role}` },
   robots: { index: false, follow: false },
 }
 
