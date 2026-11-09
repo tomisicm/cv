@@ -223,6 +223,181 @@ html {
     opacity: 1;
   }
 
+  /* --- isometric system tower ------------------------------------------ */
+  /*
+   * Five planes in one preserve-3d context. `--i` is the index from the top
+   * and `--lift` is set per layer by the component: positive above the
+   * selection, negative below it. The gap lives on the tower so hover can
+   * widen every floor without a state update.
+   */
+  .iso-scene {
+    position: relative;
+    perspective: 1200px;
+    perspective-origin: 50% 46%;
+    background: radial-gradient(
+      58% 46% at 50% 62%,
+      rgb(255 106 61 / 0.07),
+      transparent 70%
+    );
+  }
+
+  .iso-tower {
+    --gap: 64px;
+    position: relative;
+    width: 216px;
+    height: 140px;
+    transform: rotateX(44deg) rotateZ(-32deg);
+    transform-style: preserve-3d;
+  }
+
+  .iso-tower:hover {
+    --gap: 74px;
+  }
+
+  .iso-floor {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background-image: linear-gradient(
+      160deg,
+      oklch(calc(0.46 - var(--i) * 0.03) 0.012 250),
+      oklch(calc(0.32 - var(--i) * 0.025) 0.014 250)
+    );
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.13),
+      inset 0 0 0 1px rgb(255 255 255 / 0.06),
+      0 24px 36px -20px rgb(0 0 0 / 0.75);
+    transform: translateZ(
+      calc(
+        (var(--center) - var(--i)) * var(--gap) + var(--lift, 0px) +
+          var(--hover, 0px)
+      )
+    );
+    transition:
+      transform 550ms cubic-bezier(0.3, 0.9, 0.3, 1),
+      box-shadow 300ms ease;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  /* dark fascia: the front edge of each slab */
+  .iso-floor::before {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 52px;
+    border-radius: 0 0 12px 12px;
+    border-top: 1px solid rgb(255 255 255 / 0.09);
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.035),
+      rgb(9 10 12 / 0.58)
+    );
+    pointer-events: none;
+  }
+
+  /* ember wash, faded in on the selected floor */
+  .iso-floor::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 52px;
+    border-radius: 0 0 12px 12px;
+    background: linear-gradient(160deg, #ff7a4f, #d94d24);
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  .iso-floor:hover {
+    --hover: 9px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      inset 0 0 0 1px rgb(255 106 61 / 0.25),
+      0 26px 40px -20px rgb(0 0 0 / 0.8);
+  }
+
+  .iso-floor:focus-visible {
+    --hover: 12px;
+    outline: 2px solid var(--color-ember);
+    outline-offset: 4px;
+  }
+
+  .iso-floor[aria-pressed='true'] {
+    --hover: 0px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.15),
+      inset 0 0 0 1px rgb(255 106 61 / 0.45),
+      0 28px 44px -18px rgb(255 106 61 / 0.3);
+  }
+
+  .iso-floor[aria-pressed='true']::after {
+    opacity: 1;
+  }
+
+  .iso-floor-face {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 14px 10px;
+    pointer-events: none;
+  }
+
+  .iso-floor-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .iso-floor-index {
+    color: var(--color-ember);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    transition: color 300ms ease;
+  }
+
+  .iso-floor-label {
+    color: rgb(152 160 173 / 0.8);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    transition: color 300ms ease;
+  }
+
+  .iso-floor-name {
+    color: var(--color-fog);
+    font-size: 16.5px;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    font-weight: 600;
+    transition: color 300ms ease;
+  }
+
+  .iso-floor[aria-pressed='true'] .iso-floor-index,
+  .iso-floor[aria-pressed='true'] .iso-floor-label {
+    color: rgb(9 10 12 / 0.82);
+  }
+
+  .iso-floor[aria-pressed='true'] .iso-floor-name {
+    color: var(--color-night);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .iso-floor,
+    .iso-floor::after {
+      transition: none;
+    }
+  }
+
   /* --- entrance animations --------------------------------------------- */
   /*
    * Everything below is opt-in twice: `[data-js]` is set by an inline script

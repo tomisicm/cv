@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { cv } from "@/content/cv";
 import { FourierWave } from "@/components/web/FourierWave";
-import { ArchitectureDiagram } from "@/components/work/ArchitectureDiagram";
+import { SystemTower } from "@/components/work/SystemTower";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -264,7 +264,7 @@ export default function WorkPage() {
               </Sub>
 
               <Sub title="Shape of the system">
-              <ArchitectureDiagram />
+              <SystemTower />
                 <p>
                   One deployable unit, one database, one cache. Everything runs
                   in Docker Compose on a single host, fronted by a tunnel so no
