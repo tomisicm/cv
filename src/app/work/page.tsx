@@ -113,12 +113,20 @@ export default function WorkPage() {
                 Mihailo Tomišić
               </span>
             </Link>
-            <Link
-              href="/"
-              className="font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
-            >
-              ← CV
-            </Link>
+            <div className="flex items-center gap-5">
+              <a
+                href="#ai"
+                className="hidden font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember sm:inline"
+              >
+                AI
+              </a>
+              <Link
+                href="/"
+                className="font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
+              >
+                ← CV
+              </Link>
+            </div>
           </div>
         </header>
 
@@ -138,7 +146,7 @@ export default function WorkPage() {
           </p>
 
           {/* index — the waveform sits behind the project cards */}
-          <div className="relative mt-12 py-10 sm:py-12">
+          <div className="relative mt-12 py-10">
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-[0.65] [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]"
@@ -389,7 +397,57 @@ export default function WorkPage() {
             </div>
           </section>
 
-          {/* CTA */}
+          {/* AI practice */}
+        <section id="ai" className="mt-24 scroll-mt-24">
+          <div className="flex items-baseline gap-4">
+            <h2 className="font-mono text-[10.5px] font-semibold tracking-[0.28em] text-dim uppercase">
+              AI, in practice
+            </h2>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
+          <div className="mt-5 flex flex-col gap-4 text-[15px] leading-[1.75] text-fog/80">
+            <p>
+              Most of my AI use is in delivery, not in the product. Right now
+              I&apos;m riding the DeepSeek wave, harnessing it alongside a bunch of MCPs
+              servers to plan and edit across files while I review the diffs and
+              run the tests. Ships aren&apos;t built for quiet seas — in two
+              months this stack will probably look completely different. The
+              tool writes; I decide.
+            </p>
+            <p>
+              That only works because there is a signal for “done”. This
+              site’s build fails if the CV PDF is not exactly one page, or if it
+              comes back as an image instead of text. Write the check first,
+              then let the agent iterate against it — an agent without a
+              fitness function is just guessing.
+            </p>
+            <p>
+              Cost and latency get designed rather than measured afterwards:
+              cache what repeats, keep the model off the hot path where the
+              answer does not need it, and cap or stream what does come back.
+            </p>
+            <p>
+              Where I would not put one: anything that has to be auditable. Time
+              entries and money stay deterministic — a model that occasionally
+              produces a plausible wrong number is worse than no model. The
+              useful places are narrower: summarising a week, extracting a
+              project code from free text, drafting a description — each with
+              schema validation and a human confirming.
+            </p>
+            <p>
+              I also build for agents as consumers, not only as tools: an{' '}
+              <code className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[12.5px] text-fog/90">
+                llms.txt
+              </code>
+              , JSON-LD, and read-only WebMCP tools on this site. Same question
+              as an API — what should an agent be allowed to do, and what should
+              it be told?
+            </p>
+          </div>
+        </section>
+
+        {/* CTA */}
           <div className="mt-20 border-t border-white/10 pt-8">
             <p className="max-w-[52ch] text-[14px] leading-[1.7] text-fog/70">
               Happy to walk you through the schema, the failure modes, and the
