@@ -217,20 +217,20 @@ export function ArchitectureDiagram() {
 
       <div className="z-10 flex justify-center" data-diagram-node="ingress">
         <div className="w-60 rounded-lg border border-ember/30 bg-ember/[0.05] px-4 py-3 text-center">
-          <p className="font-mono text-[10px] tracking-[0.22em] text-ember uppercase">
+          <p className="font-mono text-[11px] tracking-[0.22em] text-ember uppercase">
             Ingress
           </p>
-          <p className="mt-1 text-[14px] font-medium">Cloudflare Tunnel</p>
+          <p className="mt-1 text-[15px] font-medium">Cloudflare Tunnel</p>
         </div>
       </div>
 
       <div className="z-10 flex justify-center" data-diagram-node="runtime">
         <div className="w-72 rounded-lg border border-white/15 bg-white/[0.03] px-4 py-3.5 text-center">
-          <p className="font-mono text-[10px] tracking-[0.22em] text-dim uppercase">
+          <p className="font-mono text-[11px] tracking-[0.22em] text-dim uppercase">
             Runtime
           </p>
-          <p className="mt-1 text-[14px] font-medium">Next.js · App Router</p>
-          <p className="mt-1 font-mono text-[10px] tracking-[0.1em] text-dim uppercase">
+          <p className="mt-1 text-[15px] font-medium">Next.js · App Router</p>
+          <p className="mt-1 font-mono text-[11px] tracking-[0.1em] text-dim uppercase">
             TypeScript
           </p>
         </div>
@@ -242,7 +242,7 @@ export function ArchitectureDiagram() {
           className="w-[44%] max-w-[220px] rounded-lg border border-white/12 bg-white/[0.02] px-3 py-3 text-center"
         >
           <p className="text-[13.5px] font-medium">Postgres</p>
-          <p className="mt-0.5 font-mono text-[10px] tracking-[0.1em] text-dim uppercase">
+          <p className="mt-0.5 font-mono text-[11px] tracking-[0.1em] text-dim uppercase">
             Source of truth
           </p>
         </div>
@@ -252,7 +252,7 @@ export function ArchitectureDiagram() {
           className="w-[44%] max-w-[220px] rounded-lg border border-white/12 bg-white/[0.02] px-3 py-3 text-center"
         >
           <p className="text-[13.5px] font-medium">Redis</p>
-          <p className="mt-0.5 font-mono text-[10px] tracking-[0.1em] text-dim uppercase">
+          <p className="mt-0.5 font-mono text-[11px] tracking-[0.1em] text-dim uppercase">
             Cache, rate limits
           </p>
         </div>
