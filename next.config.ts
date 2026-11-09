@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   output: 'export',
   // Lets verification builds write somewhere other than `.next`, so running a
   // build never clobbers a dev server that is using the same directory.
-  distDir: process.env.NEXT_DIST_DIR ?? '.next',
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // Emits `out/print/index.html` instead of `out/print.html`, which keeps the
   // static file server and the PDF job trivially predictable.
   trailingSlash: true,

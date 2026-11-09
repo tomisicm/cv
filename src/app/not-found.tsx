@@ -17,7 +17,7 @@ export default function NotFound() {
         This page isn&apos;t in the CV.
       </h1>
 
-      <p className="mt-5 max-w-[46ch] text-center text-[14.5px] leading-relaxed text-fog/70">
+      <p className="mt-5 max-w-[46ch] text-center text-[15px] leading-relaxed text-fog/70">
         The link may be old, or the page may have moved. Everything worth
         reading is on the one-pager.
       </p>
@@ -25,13 +25,13 @@ export default function NotFound() {
       <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
         <Link
           href="/"
-          className="rounded-full bg-ember px-6 py-3 text-[13px] font-semibold text-night transition-opacity hover:opacity-90"
+          className="rounded-full bg-ember px-6 py-3 text-[13.5px] font-semibold text-night transition-opacity hover:opacity-90"
         >
           Back to the CV
         </Link>
         <a
           href="/cv.pdf"
-          className="rounded-full border border-white/15 px-6 py-3 text-[13px] font-medium text-fog transition-colors hover:border-ember/60 hover:text-ember"
+          className="rounded-full border border-white/15 px-6 py-3 text-[13.5px] font-medium text-fog transition-colors hover:border-ember/60 hover:text-ember"
         >
           Download PDF
         </a>

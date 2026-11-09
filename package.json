@@ -7,7 +7,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_DIST_DIR=.next-dev next dev",
     "build": "next build",
     "pdf": "node scripts/generate-pdf.mjs",
     "build:pdf": "next build && node scripts/generate-og.mjs && node scripts/generate-pdf.mjs",

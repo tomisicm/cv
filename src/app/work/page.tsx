@@ -20,7 +20,7 @@ function Sub({
   return (
     <section className="mt-10 first:mt-0">
       <div className="flex items-baseline gap-4">
-        <h3 className="font-mono text-[10.5px] font-semibold tracking-[0.28em] text-dim uppercase">
+        <h3 className="font-mono text-[11px] font-semibold tracking-[0.28em] text-dim uppercase">
           {title}
         </h3>
         <span className="h-px flex-1 bg-white/10" />
@@ -56,7 +56,7 @@ function ProjectHeader({
 
       <div className="mt-3.5">
         <span
-          className={`rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.16em] uppercase ${
+          className={`rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.16em] uppercase ${
             tone === "active"
               ? "border-ember/40 text-ember"
               : "border-white/12 text-fog/55"
@@ -78,10 +78,10 @@ function Decision({
 }) {
   return (
     <div className="border-l border-white/10 pl-5">
-      <p className="font-mono text-[10.5px] font-semibold tracking-[0.14em] text-ember uppercase">
+      <p className="font-mono text-[11px] font-semibold tracking-[0.14em] text-ember uppercase">
         {choice}
       </p>
-      <p className="mt-2 text-[14.5px] leading-[1.7] text-fog/75">{children}</p>
+      <p className="mt-2 text-[15px] leading-[1.7] text-fog/75">{children}</p>
     </div>
   );
 }
@@ -106,23 +106,23 @@ export default function WorkPage() {
         <header className="sticky top-0 z-50 border-b border-white/10 bg-night/60 backdrop-blur-xl">
           <div className="mx-auto flex h-14 max-w-[900px] items-center justify-between px-5 sm:px-8">
             <Link href="/" className="group flex items-center gap-3">
-              <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[10px] font-bold text-night">
+              <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[11px] font-bold text-night">
                 MT
               </span>
-              <span className="hidden font-mono text-[10.5px] font-medium tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
+              <span className="hidden font-mono text-[11px] font-medium tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
                 Mihailo Tomišić
               </span>
             </Link>
             <div className="flex items-center gap-5">
               <a
                 href="#ai"
-                className="hidden font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember sm:inline"
+                className="hidden font-mono text-[11px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember sm:inline"
               >
                 AI
               </a>
               <Link
                 href="/"
-                className="font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
+                className="font-mono text-[11px] font-medium tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
               >
                 ← CV
               </Link>
@@ -131,7 +131,7 @@ export default function WorkPage() {
         </header>
 
         <main className="mx-auto max-w-[820px] px-5 py-16 sm:px-8 sm:py-20">
-          <p className="font-mono text-[10.5px] font-semibold tracking-[0.3em] text-ember uppercase">
+          <p className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ember uppercase">
             Work
           </p>
 
@@ -162,14 +162,14 @@ export default function WorkPage() {
               href="#time-tracking"
               className="group flex flex-col justify-between gap-4 rounded-lg border border-white/10 bg-transparent p-5 transition-colors hover:border-ember/40"
             >
-              <span className="font-mono text-[10.5px] tracking-[0.18em] text-ember">
+              <span className="font-mono text-[11px] tracking-[0.18em] text-ember">
                 01
               </span>
               <span>
                 <span className="block text-[15px] leading-snug font-medium text-fog">
                   Time tracking for small teams
                 </span>
-                <span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-fog/50 uppercase">
+                <span className="mt-1 block font-mono text-[11px] tracking-[0.14em] text-fog/50 uppercase">
                   In progress
                 </span>
               </span>
@@ -179,14 +179,14 @@ export default function WorkPage() {
               href="#not-shipped"
               className="group flex flex-col justify-between gap-4 rounded-lg border border-white/10 bg-transparent p-5 transition-colors hover:border-ember/40"
             >
-              <span className="font-mono text-[10.5px] tracking-[0.18em] text-ember">
+              <span className="font-mono text-[11px] tracking-[0.18em] text-ember">
                 02
               </span>
               <span>
                 <span className="block text-[15px] leading-snug font-medium text-fog">
                   Things that didn&apos;t become products
                 </span>
-                <span className="mt-1 block font-mono text-[10px] tracking-[0.14em] text-fog/50 uppercase">
+                <span className="mt-1 block font-mono text-[11px] tracking-[0.14em] text-fog/50 uppercase">
                   Dormant
                 </span>
               </span>
@@ -204,13 +204,13 @@ export default function WorkPage() {
               status="In progress"
             />
 
-            <p className="mt-6 max-w-[62ch] text-[16px] leading-[1.7] text-fog/75">
+            <p className="mt-6 max-w-[62ch] text-[16.5px] leading-[1.7] text-fog/75">
               A platform for recording billable hours against projects and
               clients, with the reporting layer finance needs to trust the
               numbers.
             </p>
 
-            <dl className="mt-7 grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-2.5 border-t border-white/10 pt-5 font-mono text-[11.5px]">
+            <dl className="mt-7 grid grid-cols-[auto_minmax(0,1fr)] gap-x-6 gap-y-2.5 border-t border-white/10 pt-5 font-mono text-[11px]">
               <dt className="text-fog/60">ROLE</dt>
               <dd className="text-fog/90">
                 Sole engineer — architecture, build, operations
@@ -225,7 +225,7 @@ export default function WorkPage() {
               {STACK.map((item) => (
                 <span
                   key={item}
-                  className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 font-mono text-[10.5px] tracking-[0.1em] text-dim uppercase"
+                  className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] tracking-[0.1em] text-dim uppercase"
                 >
                   {item}
                 </span>
@@ -342,7 +342,7 @@ export default function WorkPage() {
               tone="dormant"
             />
 
-            <p className="mt-6 max-w-[58ch] text-[16px] leading-[1.7] text-fog/75">
+            <p className="mt-6 max-w-[58ch] text-[16.5px] leading-[1.7] text-fog/75">
               The second shelf. Some of these ran out of market, some ran out of
               time. Every one of them changed how I build — which is the part
               worth writing down.
@@ -350,22 +350,22 @@ export default function WorkPage() {
 
             <div className="mt-10 rounded-lg border border-white/10 bg-white/[0.02] p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="text-[20px] font-semibold">renovateIT</h3>
-                <span className="font-mono text-[10px] tracking-[0.18em] text-fog/55 uppercase">
+                <h3 className="text-[22px] font-semibold">renovateIT</h3>
+                <span className="font-mono text-[11px] tracking-[0.18em] text-fog/55 uppercase">
                   Not launched
                 </span>
               </div>
 
-              <p className="mt-2 text-[14.5px] leading-[1.7] text-fog/75">
+              <p className="mt-2 text-[15px] leading-[1.7] text-fog/75">
                 A marketplace and operations app for small renovation crews: job
                 intake, quoting, and crew scheduling in one place.
               </p>
 
-              <p className="mt-3 font-mono text-[10.5px] tracking-[0.12em] text-dim uppercase">
+              <p className="mt-3 font-mono text-[11px] tracking-[0.12em] text-dim uppercase">
                 NestJS · Next.js · Postgres · Redis
               </p>
 
-              <p className="mt-4 text-[14.5px] leading-[1.7] text-fog/75">
+              <p className="mt-4 text-[15px] leading-[1.7] text-fog/75">
                 <span className="font-medium text-fog/90">Why I stopped:</span>{" "}
                 it was close to complete when the supply side turned out to be
                 already consolidated by established marketplaces —
@@ -384,7 +384,7 @@ export default function WorkPage() {
             </p>
 
             <div className="mt-8 rounded-lg border border-ember/25 bg-ember/[0.04] p-6">
-              <p className="font-mono text-[10.5px] font-semibold tracking-[0.2em] text-ember uppercase">
+              <p className="font-mono text-[11px] font-semibold tracking-[0.2em] text-ember uppercase">
                 Dormant, not dead
               </p>
               <p className="mt-3 max-w-[58ch] text-[15px] leading-[1.75] text-fog/80">
@@ -400,7 +400,7 @@ export default function WorkPage() {
           {/* AI practice */}
         <section id="ai" className="mt-24 scroll-mt-24">
           <div className="flex items-baseline gap-4">
-            <h2 className="font-mono text-[10.5px] font-semibold tracking-[0.28em] text-dim uppercase">
+            <h2 className="font-mono text-[11px] font-semibold tracking-[0.28em] text-dim uppercase">
               AI, in practice
             </h2>
             <span className="h-px flex-1 bg-white/10" />
@@ -437,7 +437,7 @@ export default function WorkPage() {
             </p>
             <p>
               I also build for agents as consumers, not only as tools: an{' '}
-              <code className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[12.5px] text-fog/90">
+              <code className="rounded bg-white/[0.06] px-1.5 py-0.5 font-mono text-[11px] text-fog/90">
                 llms.txt
               </code>
               , JSON-LD, and read-only WebMCP tools on this site. Same question
@@ -449,7 +449,7 @@ export default function WorkPage() {
 
         {/* CTA */}
           <div className="mt-20 border-t border-white/10 pt-8">
-            <p className="max-w-[52ch] text-[14px] leading-[1.7] text-fog/70">
+            <p className="max-w-[52ch] text-[15px] leading-[1.7] text-fog/70">
               Happy to walk you through the schema, the failure modes, and the
               parts that were wrong the first time — or the post-mortem on the
               ones that didn&apos;t ship.
@@ -460,13 +460,13 @@ export default function WorkPage() {
                 href={`mailto:${cv.email}?subject=${encodeURIComponent(
                   "Walkthrough — time tracking platform",
                 )}`}
-                className="rounded-full bg-ember px-5 py-2.5 text-[13px] font-semibold text-night transition-opacity hover:opacity-90"
+                className="rounded-full bg-ember px-5 py-2.5 text-[13.5px] font-semibold text-night transition-opacity hover:opacity-90"
               >
                 Request a walkthrough →
               </a>
               <Link
                 href="/"
-                className="text-[13px] text-fog/70 transition-colors hover:text-ember"
+                className="text-[13.5px] text-fog/70 transition-colors hover:text-ember"
               >
                 Back to the CV
               </Link>
@@ -475,7 +475,7 @@ export default function WorkPage() {
   
         <section className="mt-20">
           <div className="flex items-baseline gap-4">
-            <h2 className="font-mono text-[10.5px] font-semibold tracking-[0.28em] text-dim uppercase">
+            <h2 className="font-mono text-[11px] font-semibold tracking-[0.28em] text-dim uppercase">
               Colophon
             </h2>
             <span className="h-px flex-1 bg-white/10" />

@@ -23,10 +23,10 @@ const SECTIONS = [
 function SectionHeading({ index, title }: { index: string; title: string }) {
   return (
     <div className="flex items-baseline gap-4">
-      <span className="font-mono text-[10.5px] font-semibold tracking-[0.18em] text-ember">
+      <span className="font-mono text-[11px] font-semibold tracking-[0.18em] text-ember">
         {index}
       </span>
-      <h2 className="font-mono text-[10.5px] font-semibold tracking-[0.3em] text-dim uppercase">
+      <h2 className="font-mono text-[11px] font-semibold tracking-[0.3em] text-dim uppercase">
         {title}
       </h2>
       <span className="h-px flex-1 bg-white/10" />
@@ -36,7 +36,7 @@ function SectionHeading({ index, title }: { index: string; title: string }) {
 
 function ContactLinks({ cv }: { cv: Cv }) {
   return (
-    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11.5px]">
+    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-2.5 font-mono text-[11px]">
       <dt className="text-fog/60">LOC</dt>
       <dd className="text-fog/80">{cv.location}</dd>
 
@@ -89,7 +89,7 @@ export function WebResume({ cv }: { cv: Cv }) {
       {/* ---------------------------------------------------------------- */}
       <header className="relative pt-16 sm:pt-24">
         <div
-          className="rise flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[10px] tracking-[0.22em] uppercase"
+          className="rise flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[11px] tracking-[0.22em] uppercase"
           style={{ animationDelay: '80ms' }}
         >
           <span className="inline-flex items-center gap-2 text-ember">
@@ -122,7 +122,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
         <div className="mt-12 grid gap-10 border-t border-white/10 pt-8 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-16">
           <p
-            className="rise max-w-[58ch] text-[15px] leading-[1.75] text-fog/75"
+            className="rise max-w-[58ch] text-[16.5px] leading-[1.7] text-fog/80"
             style={{ animationDelay: '420ms' }}
           >
             {cv.summary}
@@ -147,7 +147,7 @@ export function WebResume({ cv }: { cv: Cv }) {
       <div className="mt-20 grid gap-14 lg:grid-cols-[150px_minmax(0,1fr)] lg:gap-20">
         <aside className="hidden lg:block">
           <div className="sticky top-24">
-            <p className="mb-4 font-mono text-[10px] tracking-[0.24em] text-fog/55 uppercase">
+            <p className="mb-4 font-mono text-[11px] tracking-[0.24em] text-fog/55 uppercase">
               Index
             </p>
 
@@ -155,7 +155,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <div className="mt-8 h-px w-10 bg-white/10" />
 
-            <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-[0.14em] text-fog/55 uppercase">
+            <p className="mt-4 font-mono text-[11px] leading-relaxed tracking-[0.14em] text-fog/55 uppercase">
               One page
               <br />
               A4 · PDF
@@ -180,18 +180,18 @@ export function WebResume({ cv }: { cv: Cv }) {
                 >
                   <SpotlightCard className="group -mx-3 border-t border-white/10 px-3 py-9 first:border-t-0 first:pt-0">
                     <div className="grid gap-3 sm:grid-cols-[150px_minmax(0,1fr)] sm:gap-10">
-                      <div className="font-mono text-[10.5px] leading-relaxed font-medium tracking-[0.12em] text-dim uppercase">
+                      <div className="font-mono text-[11px] leading-relaxed font-medium tracking-[0.12em] text-dim uppercase">
                         <span className="block text-fog/60">{entry.end}</span>
                         <span className="block">{entry.start}</span>
                       </div>
 
                       <div>
-                        <h3 className="text-[23px] leading-tight font-semibold tracking-[-0.02em]">
+                        <h3 className="text-[22px] leading-tight font-semibold tracking-[-0.02em]">
                           {entry.role}
                         </h3>
 
                         {entry.company && (
-                          <p className="mt-1.5 text-[13px] font-medium text-ember">
+                          <p className="mt-1.5 text-[13.5px] font-medium text-ember">
                             {entry.company}
                             {entry.client && (
                               <span className="font-normal text-dim">
@@ -206,7 +206,7 @@ export function WebResume({ cv }: { cv: Cv }) {
                           {entry.bullets.map((bullet) => (
                             <li
                               key={bullet.text}
-                              className={`flex gap-3 text-[14px] leading-[1.65] ${
+                              className={`flex gap-3 text-[15px] leading-[1.65] ${
                                 bullet.highlight ? 'text-fog/90' : 'text-fog/70'
                               }`}
                             >
@@ -226,7 +226,7 @@ export function WebResume({ cv }: { cv: Cv }) {
                           {entry.tech.map((item) => (
                             <li
                               key={item}
-                              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 font-mono text-[10px] tracking-[0.1em] text-dim uppercase transition-colors hover:border-ember/40 hover:text-ember"
+                              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] tracking-[0.1em] text-dim uppercase transition-colors hover:border-ember/40 hover:text-ember"
                             >
                               {item}
                             </li>
@@ -252,10 +252,10 @@ export function WebResume({ cv }: { cv: Cv }) {
               {cv.skills.map((group, index) => (
                 <Reveal key={group.label} delay={index * 50}>
                   <div className="group border-l border-white/10 pl-5 transition-colors hover:border-ember/50">
-                    <h3 className="font-mono text-[10.5px] font-semibold tracking-[0.24em] text-ember uppercase">
+                    <h3 className="font-mono text-[11px] font-semibold tracking-[0.24em] text-ember uppercase">
                       {group.label}
                     </h3>
-                    <p className="mt-2.5 text-[14px] leading-[1.7] text-fog/75">
+                    <p className="mt-2.5 text-[15px] leading-[1.7] text-fog/75">
                       {group.items.join('  ·  ')}
                     </p>
                   </div>
@@ -276,13 +276,13 @@ export function WebResume({ cv }: { cv: Cv }) {
               {cv.education.map((entry, index) => (
                 <Reveal key={entry.degree} delay={index * 80}>
                   <div className="h-full rounded-lg border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-ember/30 hover:bg-white/[0.035]">
-                    <p className="font-mono text-[10.5px] font-medium tracking-[0.16em] text-dim">
+                    <p className="font-mono text-[11px] font-medium tracking-[0.16em] text-dim">
                       {entry.start} — {entry.end}
                     </p>
-                    <h3 className="mt-3 text-[16px] leading-snug font-medium">
+                    <h3 className="mt-3 text-[16.5px] leading-snug font-medium">
                       {entry.degree}
                     </h3>
-                    <p className="mt-1 text-[13px] text-dim">{entry.school}</p>
+                    <p className="mt-1 text-[13.5px] text-dim">{entry.school}</p>
                   </div>
                 </Reveal>
               ))}
@@ -290,13 +290,13 @@ export function WebResume({ cv }: { cv: Cv }) {
 
             <Reveal delay={100}>
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <span className="font-mono text-[10.5px] font-medium tracking-[0.24em] text-fog/60 uppercase">
+                <span className="font-mono text-[11px] font-medium tracking-[0.24em] text-fog/60 uppercase">
                   Languages
                 </span>
                 {cv.languages.map((language) => (
                   <span
                     key={language}
-                    className="rounded-full border border-white/10 px-3 py-1 text-[12px] text-fog/75"
+                    className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-fog/75"
                   >
                     {language}
                   </span>
@@ -318,13 +318,13 @@ export function WebResume({ cv }: { cv: Cv }) {
 
                 <div className="relative sm:flex sm:items-center sm:justify-between sm:gap-12">
                   <div>
-                    <p className="font-mono text-[10.5px] font-semibold tracking-[0.24em] text-ember uppercase">
+                    <p className="font-mono text-[11px] font-semibold tracking-[0.24em] text-ember uppercase">
                       One page · A4
                     </p>
                     <h2 className="mt-3 text-[28px] leading-tight font-semibold tracking-[-0.02em]">
                       Prefer paper?
                     </h2>
-                    <p className="mt-2 max-w-[46ch] text-[14px] leading-relaxed text-fog/65">
+                    <p className="mt-2 max-w-[46ch] text-[15px] leading-relaxed text-fog/65">
                       The same content, typeset for print. Selectable text and
                       clickable links, not a screenshot.
                     </p>
@@ -334,7 +334,7 @@ export function WebResume({ cv }: { cv: Cv }) {
                     <a
                       href="/cv.pdf"
                       download="mihailo-tomisic-cv.pdf"
-                      className="group inline-flex items-center gap-3 rounded-full bg-ember px-6 py-3.5 text-[13px] font-semibold text-night transition-shadow hover:shadow-[0_0_40px_-4px_rgb(255_106_61/0.7)]"
+                      className="group inline-flex items-center gap-3 rounded-full bg-ember px-6 py-3.5 text-[13.5px] font-semibold text-night transition-shadow hover:shadow-[0_0_40px_-4px_rgb(255_106_61/0.7)]"
                     >
                       Download PDF
                       <span className="transition-transform group-hover:translate-y-0.5">
@@ -346,7 +346,7 @@ export function WebResume({ cv }: { cv: Cv }) {
 
                 <div className="relative mt-8 border-t border-white/10 pt-6">
                   <a
-                    className="group inline-flex items-center gap-2 text-[13px] text-fog/70 transition-colors hover:text-ember"
+                    className="group inline-flex items-center gap-2 text-[13.5px] text-fog/70 transition-colors hover:text-ember"
                     href={`mailto:${cv.email}`}
                   >
                     {cv.email}

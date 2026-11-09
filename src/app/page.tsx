@@ -3,7 +3,6 @@ import { WebResume } from '@/components/cv/WebResume'
 import { Aurora } from '@/components/web/Aurora'
 import { ScrollProgress } from '@/components/web/ScrollProgress'
 import { WebMcpTools } from '@/components/web/WebMcpTools'
-import { geistMono } from './web-fonts'
 
 const NAV = [
   { href: '#experience', label: 'Experience' },
@@ -58,7 +57,7 @@ export default function HomePage() {
   return (
     <div
       id="top"
-      className={`${geistMono.variable} web-canvas relative min-h-screen text-fog`}
+      className="web-canvas relative min-h-screen text-fog"
     >
       <script
         type="application/ld+json"
@@ -72,10 +71,10 @@ export default function HomePage() {
         <header className="sticky top-0 z-50 border-b border-white/10 bg-night/60 backdrop-blur-xl">
           <div className="mx-auto flex h-14 max-w-[1180px] items-center justify-between px-5 sm:px-8">
             <a href="#top" className="group flex items-center gap-3">
-              <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[10px] font-bold text-night">
+              <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[11px] font-bold text-night">
                 MT
               </span>
-              <span className="hidden font-mono text-[10.5px] font-medium tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
+              <span className="hidden font-mono text-[11px] font-medium tracking-[0.2em] text-dim uppercase transition-colors group-hover:text-fog sm:block">
                 cv.tomisic.dev
               </span>
             </a>
@@ -85,7 +84,7 @@ export default function HomePage() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="font-mono text-[10.5px] font-medium tracking-[0.2em] text-dim uppercase transition-colors hover:text-fog"
+                  className="font-mono text-[11px] font-medium tracking-[0.2em] text-dim uppercase transition-colors hover:text-fog"
                 >
                   {item.label}
                 </a>
@@ -95,7 +94,7 @@ export default function HomePage() {
             <a
               href="/cv.pdf"
               download="mihailo-tomisic-cv.pdf"
-              className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-[10.5px] font-medium tracking-[0.16em] text-fog uppercase transition-colors hover:border-ember/60 hover:text-ember"
+              className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-[11px] font-medium tracking-[0.16em] text-fog uppercase transition-colors hover:border-ember/60 hover:text-ember"
             >
               PDF ↓
             </a>
@@ -115,7 +114,7 @@ export default function HomePage() {
 
           <div className="mx-auto max-w-[1180px] px-5 pb-10 sm:px-8">
             <div className="flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="font-mono text-[10px] tracking-[0.16em] text-fog/60 uppercase">
+              <p className="font-mono text-[11px] tracking-[0.16em] text-fog/60 uppercase">
                 © {new Date().getFullYear()} Mihailo Tomišić
               </p>
 
@@ -126,7 +125,7 @@ export default function HomePage() {
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="font-mono text-[10px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
+                    className="font-mono text-[11px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
                   >
                     {link.label} ↗
                   </a>
@@ -135,13 +134,13 @@ export default function HomePage() {
                   href="https://github.com/tomisicm/cv"
                   target="_blank"
                   rel="noreferrer"
-                  className="font-mono text-[10px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
+                  className="font-mono text-[11px] tracking-[0.16em] text-dim uppercase transition-colors hover:text-ember"
                 >
                   Source ↗
                 </a>
               </div>
 
-              <p className="font-mono text-[10px] tracking-[0.16em] text-fog/50 uppercase">
+              <p className="font-mono text-[11px] tracking-[0.16em] text-fog/50 uppercase">
                 Next.js · static export
               </p>
             </div>

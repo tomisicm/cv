@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
+import { geistMono } from './web-fonts'
 import { cv } from '@/content/cv'
 import './globals.css'
 
@@ -64,7 +65,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={geist.variable} suppressHydrationWarning>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         {/* Marks the document before first paint. All entrance animations are
             gated on this, so a JS failure leaves the page fully readable. */}

@@ -9,3 +9,5 @@ public/og.png
 next-env.d.ts
 README.md
 .next-verify
+
+.next-dev
