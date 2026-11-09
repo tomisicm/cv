@@ -104,7 +104,7 @@ export default function WorkPage() {
     <div className="web-canvas relative min-h-screen text-fog">
       <div className="relative z-10">
         <header className="sticky top-0 z-50 border-b border-white/10 bg-night/60 backdrop-blur-xl">
-          <div className="mx-auto flex h-14 max-w-[900px] items-center justify-between px-5 sm:px-8">
+          <div className="mx-auto flex h-14 max-w-[1180px] items-center justify-between px-5 sm:px-8">
             <Link href="/" className="group flex items-center gap-3">
               <span className="grid h-7 w-7 place-items-center rounded bg-ember font-mono text-[11px] font-bold text-night">
                 MT
@@ -130,7 +130,7 @@ export default function WorkPage() {
           </div>
         </header>
 
-        <main className="mx-auto max-w-[820px] px-5 py-16 sm:px-8 sm:py-20">
+        <main className="work-article mx-auto max-w-[1180px] px-5 py-16 sm:px-8 sm:py-20">
           <p className="font-mono text-[11px] font-semibold tracking-[0.3em] text-ember uppercase">
             Work
           </p>
@@ -348,7 +348,7 @@ export default function WorkPage() {
               worth writing down.
             </p>
 
-            <div className="mt-10 rounded-lg border border-white/10 bg-white/[0.02] p-6">
+            <div className="mt-10 max-w-[760px] rounded-lg border border-white/10 bg-white/[0.02] p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h3 className="text-[22px] font-semibold">renovateIT</h3>
                 <span className="font-mono text-[11px] tracking-[0.18em] text-fog/55 uppercase">
@@ -383,7 +383,7 @@ export default function WorkPage() {
               external data reliable.
             </p>
 
-            <div className="mt-8 rounded-lg border border-ember/25 bg-ember/[0.04] p-6">
+            <div className="mt-8 max-w-[760px] rounded-lg border border-ember/25 bg-ember/[0.04] p-6">
               <p className="font-mono text-[11px] font-semibold tracking-[0.2em] text-ember uppercase">
                 Dormant, not dead
               </p>

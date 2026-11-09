@@ -223,6 +223,15 @@ html {
     opacity: 1;
   }
 
+  /* --- article pages --------------------------------------------------- */
+  /*
+   * `/work` uses the same 1180px frame as the home page. Prose keeps a
+   * readable measure; rules and structural blocks stay full width.
+   */
+  .work-article :where(p, li):not([class*='max-w']) {
+    max-width: 68ch;
+  }
+
   /* --- isometric system tower ------------------------------------------ */
   /*
    * Five planes in one preserve-3d context. `--i` is the index from the top
