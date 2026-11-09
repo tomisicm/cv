@@ -28,23 +28,111 @@ cloudflared is the only public entrance.
 > its loopback port, so removing it is the right end state — but do it
 > deliberately. The steps and the risk are in §10.
 
-## 2. Tunnel ingress
+## 2. Two tunnels: app + cv
 
-On this host `cloudflared` runs as a **systemd service with a dashboard-managed
-token** (`--token-file /etc/cloudflared/token`), so there is no local
-`config.yml`. Add the public hostname in the Cloudflare dashboard:
+The host runs **two independent `cloudflared` instances**, one per application.
+They share the machine but not a token, connector or ingress configuration, so
+a token rotation or ingress mistake on one does not take the other down.
 
-**Zero Trust → Networks → Tunnels → (your tunnel) → Public Hostnames → Add**
+| Instance | Tunnel | Token file | Public hostname | Origin |
+|---|---|---|---|---|
+| `cloudflared@app` | `db377df7-252e-4826-bee3-550a36c2d82d` | `/etc/cloudflared/token-app` | `app.tomisic.dev` | the app's existing origin |
+| `cloudflared@cv` | `9170fa71…` | `/etc/cloudflared/token-cv` | `cv.tomisic.dev` | `http://127.0.0.1:3333` |
 
-| Field | Value |
-|---|---|
-| Subdomain | `cv` |
-| Domain | `tomisic.dev` |
-| Type | HTTP |
-| URL | `127.0.0.1:3333` |
+Both DNS records stay proxied and point at their own tunnel:
 
-**Do not add `cv.tomisic.dev` to Cloudflare Access.** It must be public, unlike
-`app.tomisic.dev`.
+```
+app.tomisic.dev  CNAME  db377df7-252e-4826-bee3-550a36c2d82d.cfargotunnel.com
+cv.tomisic.dev   CNAME  <cv-tunnel-uuid>.cfargotunnel.com
+```
+
+`cv.tomisic.dev` must stay out of Cloudflare Access; `app.tomisic.dev` keeps
+its Access application. Do not add a wildcard Access policy.
+
+### Install the service template
+
+`deploy/cloudflared@.service` is a systemd template; `%i` becomes `app` or `cv`.
+
+```bash
+sudo cp deploy/cloudflared@.service /etc/systemd/system/
+sudo systemctl daemon-reload
+
+# stop the old single-instance service
+sudo systemctl disable --now cloudflared.service
+```
+
+### Tokens
+
+Get each tunnel's **current** token from the dashboard:
+
+**Zero Trust → Networks → Tunnels → select the tunnel → Configure / Refresh
+token**
+
+Write each token to its own root-only file. Never reuse one tunnel's token for
+the other.
+
+```bash
+sudo install -m 600 /dev/stdin /etc/cloudflared/token-app <<'TOKEN'
+<paste the app tunnel token>
+TOKEN
+
+sudo install -m 600 /dev/stdin /etc/cloudflared/token-cv <<'TOKEN'
+<paste the cv tunnel token>
+TOKEN
+```
+
+Then:
+
+```bash
+sudo systemctl enable --now cloudflared@app.service cloudflared@cv.service
+```
+
+### Verify
+
+```bash
+systemctl status cloudflared@app cloudflared@cv --no-pager
+journalctl -u cloudflared@app -n 30 --no-pager
+journalctl -u cloudflared@cv  -n 30 --no-pager
+```
+
+Each should end with `Registered tunnel connection`. Then run the checker:
+
+```bash
+./deploy/verify-tunnels.sh
+```
+
+It prints both service states, the last few tunnel log lines, and the two
+public status codes. Expected:
+
+```
+cv   200
+app  302  (Cloudflare Access)
+```
+
+`deploy.sh` rebuilds `cv-web`; it does not touch the tunnel services.
+
+### Remove the old single-tunnel files
+
+Once both instances are healthy:
+
+```bash
+sudo rm -f /etc/cloudflared/token /etc/cloudflared/cv-token
+sudo rm -f /etc/systemd/system/cloudflared.service
+sudo systemctl daemon-reload
+```
+
+The old `token` and `cv-token` names are ambiguous; removing them prevents a
+future restart from silently using the wrong secret.
+
+### If one tunnel is affected
+
+- **Only `app` is down:** rotate `token-app`, restart `cloudflared@app`.
+  `cv` keeps serving.
+- **Only `cv` is down:** rotate `token-cv`, restart `cloudflared@cv`.
+  `app` keeps serving.
+- **Both are down:** check the host's network, DNS and both token files. They
+  are independent connectors, so a common failure is below both (host,
+  network, Cloudflare account).
 
 ## 3. Caching — set it at the edge
 
