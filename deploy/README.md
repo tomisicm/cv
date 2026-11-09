@@ -1,8 +1,8 @@
 # Deploying `cv.tomisic.dev` behind Cloudflare Tunnel
 
-Static export served by **static-web-server** — a single small binary. No Node,
-no Chromium, and no server config files: everything is environment variables in
-`Dockerfile`.
+Static export served by **static-web-server** — a single small binary. No Node
+and no Chromium. The only config file is `sws.toml`, which adds response
+headers; everything else is environment variables in `Dockerfile`.
 
 ## 1. Build and run
 
@@ -23,6 +23,10 @@ cloudflared is the only public entrance.
 
 > `docker-compose.yml` joins an external `observability` network. Create it once
 > if it does not exist: `docker network create observability`.
+>
+> **TODO (deferred):** `cv-web` still joins that shared network. It only needs
+> its loopback port, so removing it is the right end state — but do it
+> deliberately. The steps and the risk are in §10.
 
 ## 2. Tunnel ingress
 
@@ -83,17 +87,34 @@ Block probe traffic so it never reaches the origin:
 (http.request.uri.path contains "/.git")
 ```
 
-## 6. Security headers at the edge
+## 6. Security headers
 
-Add a **Response Header Transform Rule** (free plan) for `cv.tomisic.dev`:
+`sws.toml` is copied into the runtime image and sends these on every response:
 
 ```
 X-Content-Type-Options: nosniff
 Referrer-Policy: strict-origin-when-cross-origin
 X-Frame-Options: DENY
+Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'none'
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+Strict-Transport-Security: max-age=31536000
+X-Permitted-Cross-Domain-Policies: none
 ```
 
-They belong at the edge now, since nothing can reach the origin directly.
+`deploy.sh` fails the deploy if any of these disappear.
+
+Notes:
+
+- HSTS is intentionally one year without `includeSubDomains`/`preload`. Add
+  those at the edge only after every subdomain is confirmed HTTPS-only.
+- The CSP is deliberately partial: it locks framing, `<base>`, plugins and form
+  targets, but does not restrict `script-src`/`style-src` because Next.js emits
+  inline hydration scripts. That keeps it safe to enable without breaking the app.
+- They pass through Cloudflare, so a Response Header Transform Rule is optional
+  defence in depth. Use one if you want to change headers without a rebuild.
+
+The state that actually matters for the first request is **Always Use HTTPS**
+(§7). HSTS only protects a browser after it has seen the site over HTTPS once.
 
 ## 7. TLS
 
@@ -110,8 +131,77 @@ They belong at the edge now, since nothing can reach the origin directly.
 ## 9. Observability hooks
 
 - Container healthcheck: `GET /health`
-- Prometheus (internal): `http://cv-web:3333/health` via blackbox exporter
 - Prometheus (public): `https://cv.tomisic.dev` via blackbox
+- Prometheus (internal): **not currently configured**. If you add a
+  `cv-web:3333` scrape, switch it to the public URL or a host-loopback target
+  before removing the shared network.
 - Logs: static-web-server writes to the container's stdout, so Promtail picks
   them up with no configuration. Give this stream a short retention — a scan
   flood is mostly access-log noise.
+
+## 10. Security maintenance
+
+### Deferred: remove `cv-web` from the shared network
+
+**Risk:** the container is a static file server, but if it were ever
+compromised through a future static-web-server or Alpine CVE, the shared
+`observability` network would let it reach Postgres, the dental-records app and
+the monitoring stack. That is unnecessary blast radius.
+
+**Fix when ready:**
+
+1. Remove the `networks: [observability]` list from the `cv-web` service.
+2. Remove the top-level `networks:` section.
+3. `docker compose up -d --force-recreate`.
+4. Confirm `/`, `/cv.pdf`, `/health` still answer on `127.0.0.1:3333`, and that
+   no Prometheus scrape targets `cv-web:3333`.
+
+The loopback port mapping is all the CV needs.
+
+### Cloudflare dashboard (manual)
+
+- **Always Use HTTPS: on.** If `curl -I http://cv.tomisic.dev/` returns `200`
+  instead of `301`, this is off.
+- **HSTS:** optional at the edge. Start with `max-age=15552000`; add
+  `includeSubDomains` only after checking every subdomain, and `preload` only
+  if you are prepared for it to be permanent.
+- **2FA** on the Cloudflare account. Access stays on `app.tomisic.dev`; the CV
+  must stay public.
+- Keep the rate-limit and WAF rules from §4 and §5.
+
+### DNS / email
+
+SPF already exists. DMARC does not. Without it, `cv@tomisic.dev` is easier to
+spoof, which hurts the site's trustworthiness more than the site itself.
+
+```
+_dmarc.tomisic.dev  TXT  "v=DMARC1; p=none; rua=mailto:cv@tomisic.dev; adkim=r; aspf=r"
+```
+
+Start at `p=none` with reporting, then move to `p=quarantine` after a few weeks
+of clean reports.
+
+### Host hygiene
+
+The host also listens on `0.0.0.0` for Postgres `5432`, the app on `3000`,
+Grafana `3100`, Loki `3200`, Prometheus `9090` and SSH `22`. Docker publishes
+ports **bypassing UFW**, so a host firewall alone does not cover them.
+
+- Check the router's port-forwarding page. Only SSH (if anything) should be
+  reachable from outside; everything else should be LAN-only.
+- Prefer binding such services to `127.0.0.1` and reaching them through
+  Cloudflare Tunnel or an SSH tunnel.
+- SSH: keys only, no root login. 2FA on GitHub and Cloudflare.
+
+### Cadence
+
+- **Continuous:** Dependabot (npm, Docker, GitHub Actions) and GitHub secret
+  scanning. The repo is public, so push protection matters.
+- **Every change:** CI runs `pnpm audit --audit-level=high`, typecheck and build.
+- **Monthly:** merge Dependabot PRs; rebuild the image with
+  `docker compose build --pull` to pick up Alpine patches; optionally scan the
+  image with Trivy or Grype.
+- **Quarterly:** review Cloudflare/TLS/DNS, 2FA, router ports, host updates and
+  backups.
+- **On a Next.js or static-web-server CVE:** patch within days. Most Next.js
+  server CVEs do not apply to a static export, but the build still uses Next.

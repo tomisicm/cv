@@ -38,6 +38,17 @@ curl -s -o /dev/null -w "  /          %{http_code}  %{content_type}\n" "http://1
 curl -s -o /dev/null -w "  /cv.pdf    %{http_code}  %{content_type}\n" "http://127.0.0.1:${PORT}/cv.pdf"
 curl -s -o /dev/null -w "  /llms.txt  %{http_code}  %{content_type}\n" "http://127.0.0.1:${PORT}/llms.txt"
 
+echo "==> Security headers"
+headers=$(curl -fsSI "http://127.0.0.1:${PORT}/")
+for header in x-content-type-options referrer-policy x-frame-options content-security-policy strict-transport-security; do
+  if grep -qi "^${header}:" <<<"$headers"; then
+    echo "  ${header}  ok"
+  else
+    echo "!! missing ${header}; check sws.toml" >&2
+    exit 1
+  fi
+done
+
 echo "==> Containers"
 docker compose ps
 

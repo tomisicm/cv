@@ -1,0 +1,19 @@
+# Response headers for every path.
+#
+# These live at the origin rather than only in a Cloudflare Transform Rule so
+# the container is safe even if it is reached directly on the host. HSTS is
+# deliberately conservative (no includeSubDomains/preload) until every
+# subdomain is confirmed HTTPS; the edge can still add a stricter policy.
+#
+# `deploy.sh` fails if these headers disappear.
+
+[[advanced.headers]]
+source = "/**"
+[advanced.headers.headers]
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+X-Frame-Options = "DENY"
+Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+Content-Security-Policy = "frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'none'"
+Strict-Transport-Security = "max-age=31536000"
+X-Permitted-Cross-Domain-Policies = "none"

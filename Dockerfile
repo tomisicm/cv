@@ -31,16 +31,19 @@ COPY . .
 RUN pnpm build:pdf
 
 # ---------------------------------------------------------------------------
-# Runtime: static-web-server, a single ~4 MB binary. No Node, no Chromium,
-# no config files — everything is set through environment variables below.
+# Runtime: static-web-server, a single ~4 MB binary. No Node, no Chromium.
+# One small `sws.toml` adds response headers; everything else is environment
+# variables. Pin the version so Dependabot can propose security bumps.
 # ---------------------------------------------------------------------------
-FROM joseluisq/static-web-server:2-alpine AS runtime
+FROM joseluisq/static-web-server:2.44.1-alpine AS runtime
 
 COPY --from=build /app/out /srv
+COPY sws.toml /etc/sws.toml
 
 ENV SERVER_ROOT=/srv \
     SERVER_HOST=0.0.0.0 \
     SERVER_PORT=3333 \
+    SERVER_CONFIG_FILE=/etc/sws.toml \
     SERVER_COMPRESSION=true \
     SERVER_CACHE_CONTROL_HEADERS=false \
     SERVER_ERROR_PAGE_404=404.html \

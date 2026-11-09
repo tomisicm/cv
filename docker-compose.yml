@@ -29,6 +29,28 @@ services:
         max-size: '20m'
         max-file: '3'
 
+    # Hardening: the image already runs as the unprivileged `sws` user. These
+    # options remove the writable filesystem, drop all Linux capabilities and
+    # stop setuid binaries from gaining privileges. Resource limits keep a
+    # request flood or a compromised process from hurting the host.
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    pids_limit: 100
+
+    # TODO(security): cv-web still joins the shared `observability` network.
+    # It only needs its loopback port. Remove this block when you are ready:
+    #   - delete the `networks:` list here
+    #   - delete the top-level `networks:` section
+    #   - `docker compose up -d --force-recreate`
+    # The static server does not currently need to reach Postgres, the dental
+    # app or the monitoring stack, and Prometheus does not scrape cv-web
+    # directly. See deploy/README.md §10.
     networks:
       - observability
 
