@@ -4,7 +4,7 @@
 # Build: renders the static site, the A4 PDF and the social card.
 # Chromium lives here and never reaches the runtime image.
 # ---------------------------------------------------------------------------
-FROM node:24-bookworm-slim AS build
+FROM node:26-bookworm-slim AS build
 
 WORKDIR /app
 
