@@ -16,7 +16,7 @@
     "og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
-    "next": "^16.4.5",
+    "next": "^16.4.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.3.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^6.5.438",
-    "puppeteer": "^25.16.0",
+    "puppeteer": "^25.17.0",
     "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2"
   }
