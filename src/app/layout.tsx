@@ -45,12 +45,9 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: `${cv.name} — ${cv.role}`,
-    description: DESCRIPTION,
-    images: ['/og.png'],
-  },
+  // No twitter: block on purpose — there is no X account. Next still emits
+  // twitter:* tags: postProcessMetadata() auto-fills them from openGraph, so
+  // they follow the per-page OG values without being maintained here.
   robots: { index: true, follow: true },
 }
 

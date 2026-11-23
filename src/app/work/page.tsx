@@ -4,10 +4,35 @@ import { cv } from "@/content/cv";
 import { FourierWave } from "@/components/web/FourierWave";
 import { SystemTower } from "@/components/work/SystemTower";
 
+const DESCRIPTION =
+  "Two shelves: a time-tracking platform in progress, and the projects that did not make it — and why.";
+
+/**
+ * `alternates` and `openGraph` are shallow-merged: anything not set here is
+ * inherited verbatim from the root layout, including its canonical `/`.
+ * Without the explicit canonical, this page declares itself a duplicate of the
+ * homepage and Google drops it from the index.
+ */
 export const metadata: Metadata = {
   title: "Work",
-  description:
-    "Two shelves: a time-tracking platform in progress, and the projects that did not make it — and why.",
+  description: DESCRIPTION,
+  alternates: { canonical: "/work/" },
+  openGraph: {
+    type: "article",
+    url: "/work/",
+    siteName: "Mihailo Tomišić — CV",
+    locale: "en_GB",
+    title: "Work — Mihailo Tomišić",
+    description: DESCRIPTION,
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Mihailo Tomišić — Work",
+      },
+    ],
+  },
 };
 
 function Sub({
