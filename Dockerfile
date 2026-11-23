@@ -35,7 +35,7 @@ RUN pnpm build:pdf
 # One small `sws.toml` adds response headers; everything else is environment
 # variables. Pin the version so Dependabot can propose security bumps.
 # ---------------------------------------------------------------------------
-FROM joseluisq/static-web-server:2.44.1-alpine AS runtime
+FROM joseluisq/static-web-server:2.44.3-alpine AS runtime
 
 COPY --from=build /app/out /srv
 COPY sws.toml /etc/sws.toml
