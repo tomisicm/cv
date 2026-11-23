@@ -3,6 +3,8 @@
 Personal CV as a website, with a build-time export to a **one-page A4 PDF made of
 real, selectable text** — not an image.
 
+**Live:** <https://cv.tomisic.dev> · **Work notes:** <https://cv.tomisic.dev/work/>
+
 ## Commands
 
 ```bash
