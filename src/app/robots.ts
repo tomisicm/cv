@@ -8,8 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // The print route is a rendering surface for the PDF job, not a page.
-        disallow: ['/print/'],
       },
     ],
     sitemap: 'https://cv.tomisic.dev/sitemap.xml',
